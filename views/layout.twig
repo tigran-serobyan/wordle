@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{ title }}</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    {% block body %}{% endblock %}
+    <script src="/javascripts/script.js"></script>
+    <script>
+      let _word = "{{word}}";
+      for (let i = 0; i < _word.length; i++) {
+        if (_word[i + 1] == 'Ւ') {
+            word.push(_word[i] + _word[i + 1]);
+            i++;
+        } else {
+            word.push(_word[i]);
+        }
+      }
+      if(word.join('') != localStorage.getItem('word')){
+        localStorage.setItem('word', _word);
+        localStorage.setItem('history', '');
+      }
+      let history = localStorage.getItem('history') ? JSON.parse(localStorage.getItem('history')) : [];
+      if (history != []) {
+          for (let p in history) {
+            currentWord = history[p];
+            show();
+            guessCount++;
+          }
+          checkAll();
+      }
+  </script>
+  </body>
+</html>

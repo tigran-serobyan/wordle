@@ -1,0 +1,103 @@
+{% extends 'layout.twig' %}
+
+{% block body %}
+  <main>
+    <nav>
+    </nav>
+    <div class="guesses">
+      <div class="guessRow">
+        <span class="guessLetter"></span>
+        <span class="guessLetter"></span>
+        <span class="guessLetter"></span>
+        <span class="guessLetter"></span>
+        <span class="guessLetter"></span>
+      </div>
+      <div class="guessRow">
+        <span class="guessLetter"></span>
+        <span class="guessLetter"></span>
+        <span class="guessLetter"></span>
+        <span class="guessLetter"></span>
+        <span class="guessLetter"></span>
+      </div>
+      <div class="guessRow">
+        <span class="guessLetter"></span>
+        <span class="guessLetter"></span>
+        <span class="guessLetter"></span>
+        <span class="guessLetter"></span>
+        <span class="guessLetter"></span>
+      </div>
+      <div class="guessRow">
+        <span class="guessLetter"></span>
+        <span class="guessLetter"></span>
+        <span class="guessLetter"></span>
+        <span class="guessLetter"></span>
+        <span class="guessLetter"></span>
+      </div>
+      <div class="guessRow">
+        <span class="guessLetter"></span>
+        <span class="guessLetter"></span>
+        <span class="guessLetter"></span>
+        <span class="guessLetter"></span>
+        <span class="guessLetter"></span>
+      </div>
+      <div class="guessRow">
+        <span class="guessLetter"></span>
+        <span class="guessLetter"></span>
+        <span class="guessLetter"></span>
+        <span class="guessLetter"></span>
+        <span class="guessLetter"></span>
+      </div>
+    </div>
+    <div class="keyboard">
+      <div class="keyboardRow">
+        <button class="letter" onclick="letter('Է')">Է</button>
+        <button class="letter" onclick="letter('Թ')">Թ</button>
+        <button class="letter" onclick="letter('Փ')">Փ</button>
+        <button class="letter" onclick="letter('Ձ')">Ձ</button>
+        <button class="letter" onclick="letter('Ջ')">Ջ</button>
+        <button class="letter" onclick="letter('ԵՒ')">ԵՒ</button>
+        <button class="letter" onclick="letter('Ր')">Ր</button>
+        <button class="letter" onclick="letter('Չ')">Չ</button>
+        <button class="letter" onclick="letter('Ճ')">Ճ</button>
+        <button class="letter" onclick="letter('Ժ')">Ժ</button>
+        <button class="letter" onclick="letter('Ծ')">Ծ</button>
+      </div>
+      <div class="keyboardRow">
+        <button class="letter" onclick="letter('Ք')">Ք</button>
+        <button class="letter" onclick="letter('Ո')">Ո</button>
+        <button class="letter" onclick="letter('Ե')">Ե</button>
+        <button class="letter" onclick="letter('Ռ')">Ռ</button>
+        <button class="letter" onclick="letter('Տ')">Տ</button>
+        <button class="letter" onclick="letter('Ը')">Ը</button>
+        <button class="letter" onclick="letter('ՈՒ')">ՈՒ</button>
+        <button class="letter" onclick="letter('Ի')">Ի</button>
+        <button class="letter" onclick="letter('Օ')">Օ</button>
+        <button class="letter" onclick="letter('Պ')">Պ</button>
+        <button class="letter" onclick="letter('Խ')">Խ</button>
+      </div>
+      <div class="keyboardRow">
+        <button class="letter" onclick="letter('Ա')">Ա</button>
+        <button class="letter" onclick="letter('Ս')">Ս</button>
+        <button class="letter" onclick="letter('Դ')">Դ</button>
+        <button class="letter" onclick="letter('Ֆ')">Ֆ</button>
+        <button class="letter" onclick="letter('Գ')">Գ</button>
+        <button class="letter" onclick="letter('Հ')">Հ</button>
+        <button class="letter" onclick="letter('Յ')">Յ</button>
+        <button class="letter" onclick="letter('Կ')">Կ</button>
+        <button class="letter" onclick="letter('Լ')">Լ</button>
+        <button class="letter" onclick="letter('Շ')">Շ</button>
+      </div>
+      <div class="keyboardRow">
+        <button class="button" onclick="enter()">ՄՈՒՏՔ</button>
+        <button class="letter" onclick="letter('Զ')">Զ</button>
+        <button class="letter" onclick="letter('Ղ')">Ղ</button>
+        <button class="letter" onclick="letter('Ց')">Ց</button>
+        <button class="letter" onclick="letter('Վ')">Վ</button>
+        <button class="letter" onclick="letter('Բ')">Բ</button>
+        <button class="letter" onclick="letter('Ն')">Ն</button>
+        <button class="letter" onclick="letter('Մ')">Մ</button>
+        <button class="button" onclick="backspace()">&#x232B;</button>
+      </div>
+    </div>
+  </main>
+{% endblock %}

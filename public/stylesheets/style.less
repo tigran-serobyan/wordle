@@ -1,0 +1,254 @@
+@font-face {
+	font-family: WorkSans;
+	src        : url(WorkSans.ttf)
+}
+
+@font-face {
+	font-family: DejaVu;
+	src        : url(DejaVu.ttf)
+}
+
+*{
+  font-family: WorkSans, DejaVu, Arial, sans;
+}
+
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background: #6aaa64;
+  margin: 0;
+}
+main{
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: #121213;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.keyboard{
+  width: ~"min(100vw, 55vh)";
+  position: absolute;
+  bottom: 0;
+  left: ~"calc((100vw - min(100vw, 55vh))/2)";
+}
+
+.keyboardRow{
+  width: 100%;
+  height: 6vh;
+  margin-bottom: 0.5vh;
+  text-align: center;
+}
+
+.letter, .button{
+  height: 6vh;
+  background: #575a5a;
+  border: none;
+  color: white;
+  font-size: ~"calc(min(100vw, 50vh)/33)";
+  text-align: center;
+  box-sizing: border-box;
+  border-radius: 5px;
+  font-weight: 800;
+}
+
+.letter{
+  width: 7.8%;
+  padding: 0;
+}
+
+.button{
+  width: 17%;
+}
+
+.guesses{
+  position: absolute;
+  bottom: 30vh;
+  top: 13vh;
+  left: 5vw;
+  right: 5vw;
+}
+
+.guessRow{
+  height: ~"calc(55vh / 7 - 0.1vh)";
+  width: 89.6vw;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.guessLetter{
+  display: inline-block;
+  width: ~"calc(55vh / 7 - 0.5vh)";
+  height: ~"calc(55vh / 7 - 0.5vh)";
+  margin: 0.1vh 0.25vh;
+  background: #121213;
+  border: solid 2px #3f4141;
+  box-sizing: border-box;
+  color: white;
+  font-size: ~"calc(28vh / 7 - 0.5vh)";
+  font-weight: 900;
+  padding: 1.5vh 0;
+  text-align: center;
+  transform-style: preserve-3d;
+  animation-duration: 0.6s;
+  animation-timing-function: ease-in-out;
+}
+.guessLetter.wrong{
+  animation-name: flipWrong;
+}
+.guessLetter.hit{
+  animation-name: flipHit;
+}
+.guessLetter.right{
+  animation-name: flipRight;
+}
+
+@keyframes flipWrong{
+  0%{
+    background: #121213;
+    border-color: #3f4141;
+    transform: rotateX(0deg);
+  }
+  49%{
+    background: #121213;
+    border-color: #3f4141;
+  }
+  50%{
+    background: #242525;
+    border-color: #242525;
+    transform: rotateX(90deg);
+  }
+  100%{
+    transform: rotateX(0deg);
+    background: #242525;
+    border-color: #242525;
+  }
+}
+@keyframes flipHit{
+  0%{
+    background: #121213;
+    border-color: #3f4141;
+    transform: rotateX(0deg);
+  }
+  49%{
+    background: #121213;
+    border-color: #3f4141;
+  }
+  50%{
+    background: #b59f3b;
+    border-color: #b59f3b;
+    transform: rotateX(90deg);
+  }
+  100%{
+    transform: rotateX(0deg);
+    background: #b59f3b;
+    border-color: #b59f3b;
+  }
+}
+@keyframes flipRight{
+  0%{
+    background: #121213;
+    border-color: #3f4141;
+    transform: rotateX(0deg);
+  }
+  49%{
+    background: #121213;
+    border-color: #3f4141;
+  }
+  50%{
+    background: #538d4e;
+    border-color: #538d4e;
+    transform: rotateX(90deg);
+  }
+  100%{
+    transform: rotateX(0deg);
+    background: #538d4e;
+    border-color: #538d4e;
+  }
+}
+
+.wrong{
+  background: #242525;
+  border-color: #242525;
+}
+
+.hit{
+  background: #b59f3b;
+  border-color: #b59f3b;
+}
+
+.right{
+  background: #538d4e;
+  border-color: #538d4e;
+}
+
+.alert{
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  padding: 20px;
+  max-width: 80vw;
+  width: max-content;
+  position: absolute;
+  top: 15vh;
+  text-align: center;
+  left: 50%;
+  transform: translate(-50%);
+  color: white;
+  border-radius: 20px;
+  font-size: 24px;
+  animation: alert 3s linear;
+}
+
+.share{
+  background: #111;
+  border: solid 1px #222;
+  padding: 20px;
+  max-width: 85vw;
+  width: max-content;
+  position: absolute;
+  top: 40vh;
+  box-shadow: 0 0 10000px 200px rgba(0,0,0,0.3);
+  text-align: center;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  border-radius: 10px;
+  font-size: 24px;
+  animation: share 0.3s linear;
+}
+
+.emoji{
+  line-height: 1.1;
+  letter-spacing: 2px;
+}
+
+@keyframes alert {
+  0%{
+    opacity: 0;
+  }
+  10%{
+    opacity: 1;
+  }
+  90%{
+    opacity: 1;
+  }
+  100%{
+    opacity: 0;
+  }
+}
+
+@keyframes share {
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+}
