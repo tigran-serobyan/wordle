@@ -9,7 +9,7 @@ var _date = date.getUTCDay();
 var wordOfTheDay = '';
 
 fs.readFile('./words.txt', function (err, data) {
-  let words_ = data.toString().split('\r\n');
+  let words_ = data.toString('utf-8').split('\r\n');
   for (let w of words_) {
     if (words.indexOf(w) == -1) {
       words.push(w);
@@ -24,19 +24,19 @@ fs.readFile('./words.txt', function (err, data) {
 });
 
 fs.readFile('./repeatingWords.txt', function (err, data) {
-  let words_ = data.toString().split('\r\n');
+  let words_ = data.toString('utf-8').split('\r\n');
   for (let w of words_) {
     repeatingWords.push(w);
   }
 });
 
 fs.readFile('./nonRepeatingWords.txt', function (err, data) {
-  let words_ = data.toString().split('\r\n');
+  let words_ = data.toString('utf-8').split('\r\n');
   for (let w of words_) {
     nonRepeatingWords.push(w);
   }
   fs.readFile('./words.txt', function (err, data) {
-    let words_ = data.toString().split('\r\n');
+    let words_ = data.toString('utf-8').split('\r\n');
     for (let w of words_) {
       if (words.indexOf(w) == -1) {
         words.push(w);
