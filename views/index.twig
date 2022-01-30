@@ -3,8 +3,10 @@
 {% block body %}
   <main>
     <nav>
+      <h1>ԲԱՌՈՒԿ</h1>
     </nav>
     <div class="guesses">
+      <p id="doubleLetter">ԿՐԿՆՎՈՂ ՏԱՌ</p>
       <div class="guessRow">
         <span class="guessLetter"></span>
         <span class="guessLetter"></span>
@@ -96,7 +98,7 @@
         <button class="letter" onclick="letter('Բ')">Բ</button>
         <button class="letter" onclick="letter('Ն')">Ն</button>
         <button class="letter" onclick="letter('Մ')">Մ</button>
-        <button class="button" onclick="backspace()">&#x232B;</button>
+        <button class="button backspace" onclick="backspace()"></button>
       </div>
     </div>
   </main>
