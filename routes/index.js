@@ -53,7 +53,7 @@ router.get('/', function (req, res, next) {
   }
   wordOfTheDay = nonRepeatingWords[Math.ceil(Math.random() * (nonRepeatingWords.length - 1))].toUpperCase();
   wordNumber++;
-  res.render('index', { title: 'wordle', word: "ԱԼՅՈՒՐ", wordNumber });
+  res.render('index', { title: 'ԲԱՌՈՒԿ', word: wordOfTheDay, wordNumber });
 });
 
 router.get('/checkWord/:word', function (req, res, next) {
