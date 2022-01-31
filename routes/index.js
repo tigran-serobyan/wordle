@@ -10,21 +10,18 @@ var wordOfTheDay = '';
 var wordNumber = 1;
 
 fs.readFile('./repeatingWords.txt', function (err, data) {
-  console.log(data);
   let words_ = data.toString('utf-8').split('\r\n');
   for (let w of words_) {
     repeatingWords.push(w);
   }
   repeatingWords.sort()
   fs.readFile('./nonRepeatingWords.txt', function (err, data) {
-    console.log(data);
     let words_ = data.toString('utf-8').split('\r\n');
     for (let w of words_) {
       nonRepeatingWords.push(w);
     }
     nonRepeatingWords.sort();
     fs.readFile('./words.txt', function (err, data) {
-      console.log(data);
       let words_ = data.toString('utf-8').split('\r\n');
       for (let w of words_) {
         if (words.indexOf(w) == -1) {
