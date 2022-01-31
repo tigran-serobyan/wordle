@@ -53,8 +53,8 @@ router.get('/', function (req, res, next) {
   if (_date != date.getDate()) {
     _date = date.getDate();
   }
-  for (let i = 0; i < nonRepeatingWords[0].split('\n').length; i++) {
-    const element = nonRepeatingWords[0].split('\n')[i];
+  for (let i = 0; i < nonRepeatingWords[0].split('\\').length; i++) {
+    const element = nonRepeatingWords[0].split('\\')[i];
     console.log(i, element);    
   }
   wordOfTheDay = nonRepeatingWords[0][Math.ceil(Math.random() * (nonRepeatingWords[0].length - 1))];
