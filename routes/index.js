@@ -10,13 +10,13 @@ var wordOfTheDay = '';
 var wordNumber = 1;
 
 fs.readFile('./repeatingWords.txt', function (err, data) {
-  let words_ = data.toString('utf-8').split('\r\n');
+  let words_ = data.toString('utf-8').split('\n');
   for (let w of words_) {
     repeatingWords.push(w);
   }
   repeatingWords.sort()
   fs.readFile('./nonRepeatingWords.txt', function (err, data) {
-    let words_ = data.toString('utf-8').split('\r\n');
+    let words_ = data.toString('utf-8').split('\n');
     for (let w of words_) {
       if (nonRepeatingWords.indexOf(w) == -1) {
         nonRepeatingWords.push(w);
@@ -24,7 +24,7 @@ fs.readFile('./repeatingWords.txt', function (err, data) {
     }
     nonRepeatingWords.sort();
     fs.readFile('./words.txt', function (err, data) {
-      let words_ = data.toString('utf-8').split('\r\n');
+      let words_ = data.toString('utf-8').split('\n');
       for (let w of words_) {
         if (words.indexOf(w) == -1) {
           words.push(w);
@@ -32,11 +32,11 @@ fs.readFile('./repeatingWords.txt', function (err, data) {
       };
       words.sort();
       wordOfTheDay = words[Math.ceil(Math.random() * (words.length - 1))].toUpperCase();
-      fs.writeFile('./words.txt', words.join('\r\n'), function (err) {
+      fs.writeFile('./words.txt', words.join('\n'), function (err) {
         if (err) {
           console.log(err);
         } else {
-          fs.writeFile('./nonRepeatingWords.txt', nonRepeatingWords.join('\r\n'), function (err) {
+          fs.writeFile('./nonRepeatingWords.txt', nonRepeatingWords.join('\n'), function (err) {
             if (err) {
               console.log(err);
             }
