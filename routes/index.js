@@ -54,7 +54,7 @@ router.get('/', function (req, res, next) {
     _date = date.getDate();
   }
   wordOfTheDay = Math.ceil(Math.random() * (nonRepeatingWords.length - 1));
-  console.log(nonRepeatingWords.length);
+  console.log(nonRepeatingWords[0].length);
   console.log(typeof nonRepeatingWords);
   for(let i in nonRepeatingWords){
     if(i == wordOfTheDay){
@@ -62,7 +62,6 @@ router.get('/', function (req, res, next) {
       break;
     }
   }
-  console.log(wordOfTheDay);
   wordNumber++;
   res.render('index', { title: 'ԲԱՌՈՒԿ', word: wordOfTheDay, wordNumber });
 });
