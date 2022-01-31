@@ -53,16 +53,16 @@ router.get('/', function (req, res, next) {
   if (_date != date.getDate()) {
     _date = date.getDate();
   }
-  wordOfTheDay = nonRepeatingWords[0][Math.ceil(Math.random() * (nonRepeatingWords[0].length - 1))];
+  wordOfTheDay = nonRepeatingWords[Math.ceil(Math.random() * (nonRepeatingWords.length - 1))];
   wordNumber++;
   res.render('index', { title: 'ԲԱՌՈՒԿ', word: wordOfTheDay, wordNumber });
 });
 
 router.get('/checkWord/:word', function (req, res, next) {
-  if (words[0].indexOf(req.params.word.toLowerCase()) == -1) {
+  if (words.indexOf(req.params.word.toLowerCase()) == -1) {
     res.send(false);
-    if (repeatingWords[0].indexOf(req.params.word.toLowerCase()) == -1) {
-      repeatingWords[0].push(req.params.word.toLowerCase());
+    if (repeatingWords.indexOf(req.params.word.toLowerCase()) == -1) {
+      repeatingWords.push(req.params.word.toLowerCase());
       fs.writeFile('./repeatingWords.txt', repeatingWords.join('\r\n'), function (err) {
         if (err) {
           console.log(err);
