@@ -53,6 +53,10 @@ router.get('/', function (req, res, next) {
   if (_date != date.getDate()) {
     _date = date.getDate();
   }
+  for (let i = 0; i < nonRepeatingWords.length; i++) {
+    const element = nonRepeatingWords[i];
+    console.log(i, element);    
+  }
   wordOfTheDay = nonRepeatingWords[0][Math.ceil(Math.random() * (nonRepeatingWords[0].length - 1))];
   wordNumber++;
   res.render('index', { title: 'ԲԱՌՈՒԿ', word: wordOfTheDay, wordNumber });
