@@ -53,7 +53,6 @@ router.get('/', function (req, res, next) {
   if (_date != date.getDate()) {
     _date = date.getDate();
   }
-  console.log(nonRepeatingWords[0][0]);
   if (nonRepeatingWords.length < 10) {
     let _nonRepeatingWords = [];
     for (let i in nonRepeatingWords[0]) {
