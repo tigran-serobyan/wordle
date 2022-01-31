@@ -70,4 +70,4 @@ app.get('/', function (req, res, next) {
         }
     }
 });
-server.listen(3000);
+server.listen(process.env.PORT || '80');
