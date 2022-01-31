@@ -18,7 +18,9 @@ fs.readFile('./repeatingWords.txt', function (err, data) {
   fs.readFile('./nonRepeatingWords.txt', function (err, data) {
     let words_ = data.toString('utf-8').split('\r\n');
     for (let w of words_) {
-      nonRepeatingWords.push(w);
+      if (nonRepeatingWords.indexOf(w) == -1) {
+        nonRepeatingWords.push(w);
+      }
     }
     nonRepeatingWords.sort();
     fs.readFile('./words.txt', function (err, data) {
@@ -30,16 +32,22 @@ fs.readFile('./repeatingWords.txt', function (err, data) {
       };
       words.sort();
       wordOfTheDay = words[Math.ceil(Math.random() * (words.length - 1))].toUpperCase();
+      fs.writeFile('./words.txt', words.join('\r\n'), function (err) {
+        if (err) {
+          console.log(err);
+        } else {
+          fs.writeFile('./nonRepeatingWords.txt', nonRepeatingWords.join('\r\n'), function (err) {
+            if (err) {
+              console.log(err);
+            }
+          });
+        }
+      });
     });
   });
 });
 
 /* GET home page. */
-router.get('/stylesheets/style.css', function (req, res, next) {
-  fs.readFile('./public/stylesheets/style.css', function (err, data) {
-    res.send(data);
-  });
-})
 router.get('/', function (req, res, next) {
   date = new Date();
   if (_date != date.getDate()) {
