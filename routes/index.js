@@ -53,11 +53,19 @@ router.get('/', function (req, res, next) {
   if (_date != date.getDate()) {
     _date = date.getDate();
   }
-  console.log(nonRepeatingWords[0][1]);
-  // for (let i = 0; i < nonRepeatingWords[0].split('n').length; i++) {
-  //   const element = nonRepeatingWords[0].split('n')[i];
-  //   console.log(i, element);    
-  // }
+  console.log(nonRepeatingWords[0][0]);
+  if (nonRepeatingWords.length < 10) {
+    let _nonRepeatingWords = [];
+    for (let i in nonRepeatingWords[0]) {
+      _nonRepeatingWords.push(nonRepeatingWords[0][i] + nonRepeatingWords[0][i + 1] + nonRepeatingWords[0][i + 2] + nonRepeatingWords[0][i + 3] + nonRepeatingWords[0][i + 4]);
+      i += 7;
+    }
+    nonRepeatingWords = _nonRepeatingWords;
+  }
+  for (let i = 0; i < nonRepeatingWords.length; i++) {
+    const element = nonRepeatingWords[i];
+    console.log(i, element);
+  }
   wordOfTheDay = nonRepeatingWords[0][Math.ceil(Math.random() * (nonRepeatingWords[0].length - 1))];
   wordNumber++;
   res.render('index', { title: 'ԲԱՌՈՒԿ', word: wordOfTheDay, wordNumber });
