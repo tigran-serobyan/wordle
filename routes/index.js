@@ -53,9 +53,16 @@ router.get('/', function (req, res, next) {
   if (_date != date.getDate()) {
     _date = date.getDate();
   }
-  wordOfTheDay = nonRepeatingWords[Math.ceil(Math.random() * (nonRepeatingWords.length - 1))].toUpperCase();
+  wordOfTheDay = Math.ceil(Math.random() * (nonRepeatingWords.length - 1));
+  console.log(wordOfTheDay);
+  for(let i in nonRepeatingWords){
+    if(i == wordOfTheDay){
+      wordOfTheDay = nonRepeatingWords[wordOfTheDay].toUpperCase();
+      break;
+    }
+  }
+  console.log(wordOfTheDay);
   wordNumber++;
-  console.log(nonRepeatingWords);
   res.render('index', { title: 'ԲԱՌՈՒԿ', word: wordOfTheDay, wordNumber });
 });
 
