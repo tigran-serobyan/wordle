@@ -45,7 +45,8 @@ fs.readFile('./repeatingWords.txt', function (err, data) {
     });
 });
 
-app.use(express.static("."));
+app.use('/', express);
+app.set('port', process.env.PORT || '80');
 app.get('/', function (req, res, next) {
     console.log(req, res);
     if (words.indexOf(req.query.word.toLowerCase()) == -1) {
