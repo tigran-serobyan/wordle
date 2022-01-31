@@ -88,7 +88,6 @@ app.set('view engine', 'twig');
 
 var port = normalizePort(process.env.PORT || '80');
 app.set('port', port);
-app.use('/', router);
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -136,7 +135,7 @@ fs.readFile('./repeatingWords.txt', function (err, data) {
     });
 });
 
-router.get('/', function (req, res, next) {
+app.get('/', function (req, res, next) {
     console.log(req, res);
     if (words.indexOf(req.query.word.toLowerCase()) == -1) {
         res.send(false);
