@@ -35,6 +35,11 @@ fs.readFile('./repeatingWords.txt', function (err, data) {
 });
 
 /* GET home page. */
+router.get('/stylesheets/style.css', function (req, res, next) {
+  fs.readFile('./public/stylesheets/style.css', function (err, data) {
+    res.send(data);
+  });
+})
 router.get('/', function (req, res, next) {
   date = new Date();
   if (_date != date.getDate()) {
