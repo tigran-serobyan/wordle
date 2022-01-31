@@ -54,7 +54,8 @@ router.get('/', function (req, res, next) {
     _date = date.getDate();
   }
   wordOfTheDay = Math.ceil(Math.random() * (nonRepeatingWords.length - 1));
-  console.log(wordOfTheDay);
+  console.log(nonRepeatingWords.length);
+  console.log(typeof nonRepeatingWords);
   for(let i in nonRepeatingWords){
     if(i == wordOfTheDay){
       wordOfTheDay = nonRepeatingWords[wordOfTheDay].toUpperCase();
