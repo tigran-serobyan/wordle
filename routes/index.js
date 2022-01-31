@@ -62,11 +62,7 @@ router.get('/', function (req, res, next) {
     }
     nonRepeatingWords = _nonRepeatingWords;
   }
-  for (let i = 0; i < nonRepeatingWords.length; i++) {
-    const element = nonRepeatingWords[i];
-    console.log(i, element);
-  }
-  wordOfTheDay = nonRepeatingWords[0][Math.ceil(Math.random() * (nonRepeatingWords[0].length - 1))];
+  wordOfTheDay = nonRepeatingWords[Math.ceil(Math.random() * (nonRepeatingWords.length - 1))];
   wordNumber++;
   res.render('index', { title: 'ԲԱՌՈՒԿ', word: wordOfTheDay, wordNumber });
 });
