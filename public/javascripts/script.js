@@ -127,18 +127,22 @@ function keyboard() {
     }
 }
 
-function alert_(data) {
+function alert_(data, shake=true) {
     let alert = document.createElement('p');
     alert.setAttribute('class', 'alert');
-    document.getElementsByClassName('guessRow')[guessCount].setAttribute('class', 'guessRow shake');
+    if(shake){
+        document.getElementsByClassName('guessRow')[guessCount].setAttribute('class', 'guessRow shake');
+    }
     alert.innerText = data;
     document.getElementsByTagName('main')[0].appendChild(alert);
     setTimeout(() => {
         alert.remove();
     }, 1000);
-    setTimeout(() => {
-        document.getElementsByClassName('guessRow')[guessCount].setAttribute('class', 'guessRow');
-    }, 500);
+    if(shake){
+        setTimeout(() => {
+            document.getElementsByClassName('guessRow')[guessCount].setAttribute('class', 'guessRow');
+        }, 500);
+    }
 }
 
 function checkAll() {
@@ -257,19 +261,31 @@ function c() {
 }
 
 function copyEmoji() {
+
     if (navigator.share) {
-        async () => { await navigator.share({ text: document.getElementById('emoji').innerText }) }
-    } else {
-        var emoji = document.getElementById('emoji');
-        emoji.focus();
-        emoji.select();
-        try {
-            var successful = document.execCommand('share');
-            alert_('Պատճենված');
-        } catch (err) {
-            alert_('Չստացվեց');
-        }
-    }
+        navigator.share({ text: document.getElementById('emoji').innerText }).then(() => {
+        }).catch(err => {
+         var emoji = document.getElementById('emoji');
+         emoji.focus();
+         emoji.select();
+         try {
+             var successful = document.execCommand('share');
+             alert_('Պատճենված', false);
+         } catch (err) {
+             alert_('Չստացվեց', false);
+         }
+         });
+     } else{
+         var emoji = document.getElementById('emoji');
+         emoji.focus();
+         emoji.select();
+         try {
+             var successful = document.execCommand('share');
+             alert_('Պատճենված');
+         } catch (err) {
+             alert_('Չստացվեց');
+         }
+     }
 }
 
 function checkWord(word) {
