@@ -30,62 +30,60 @@ function enter() {
     if (!enterInProgress) {
         enterInProgress = true;
         if (currentWord.length == 5) {
-            axios.get('/checkWord/' + currentWord.join('')).then(function (response) {
-                if (response.data) {
-                    let guessRight = true;
-                    history.push(currentWord);
-                    localStorage.setItem('history', JSON.stringify(history));
-                    let guessRows = document.getElementsByClassName("guessRow");
-                    let letters = guessRows[guessCount].getElementsByClassName("guessLetter");
-                    for (let i in currentWord) {
-                        setTimeout(() => {
-                            let k = [];
-                            for (let j in word) {
-                                if (word[j] == currentWord[i]) {
-                                    k.push(j);
+            if (checkWord(currentWord.join(''))) {
+                let guessRight = true;
+                history.push(currentWord);
+                localStorage.setItem('history', JSON.stringify(history));
+                let guessRows = document.getElementsByClassName("guessRow");
+                let letters = guessRows[guessCount].getElementsByClassName("guessLetter");
+                for (let i in currentWord) {
+                    setTimeout(() => {
+                        let k = [];
+                        for (let j in word) {
+                            if (word[j] == currentWord[i]) {
+                                k.push(j);
+                            }
+                        }
+                        if (k.length > 1) {
+                            let right = true;
+                            for (let j of k) {
+                                if (currentWord[j] != word[j]) {
+                                    right = false;
                                 }
                             }
-                            if (k.length > 1) {
-                                let right = true;
-                                for (let j of k) {
-                                    if (currentWord[j] != word[j]) {
-                                        right = false;
-                                    }
-                                }
-                                if (right && word[i] == letters[i].innerText) {
-                                    letters[i].setAttribute('class', "guessLetter right");
-                                } else {
-                                    letters[i].setAttribute('class', "guessLetter hit");
-                                    guessRight = false;
-                                }
-                            } else if (k.length == 1) {
-                                if (k[0] == i) {
-                                    letters[i].setAttribute('class', "guessLetter right");
-                                } else if (k[0]) {
-                                    letters[i].setAttribute('class', "guessLetter hit");
-                                    guessRight = false;
-                                }
+                            if (right && word[i] == letters[i].innerText) {
+                                letters[i].setAttribute('class', "guessLetter right");
                             } else {
-                                letters[i].setAttribute('class', "guessLetter wrong");
+                                letters[i].setAttribute('class', "guessLetter hit");
                                 guessRight = false;
                             }
-                        }, i * 200);
-                    }
-                    setTimeout(() => {
-                        guessCount += 1;
-                        currentWord = [];
-                        keyboard();
-                        enterInProgress = false;
-                        if (guessRight || guessCount == 6) {
-                            endOfGame = true;
-                            endScreen();
+                        } else if (k.length == 1) {
+                            if (k[0] == i) {
+                                letters[i].setAttribute('class', "guessLetter right");
+                            } else if (k[0]) {
+                                letters[i].setAttribute('class', "guessLetter hit");
+                                guessRight = false;
+                            }
+                        } else {
+                            letters[i].setAttribute('class', "guessLetter wrong");
+                            guessRight = false;
                         }
-                    }, 1500);
-                } else {
-                    enterInProgress = false;
-                    alert_('Բառերի ցանկում այս բառը չկա');
+                    }, i * 200);
                 }
-            });
+                setTimeout(() => {
+                    guessCount += 1;
+                    currentWord = [];
+                    keyboard();
+                    enterInProgress = false;
+                    if (guessRight || guessCount == 6) {
+                        endOfGame = true;
+                        endScreen();
+                    }
+                }, 1500);
+            } else {
+                enterInProgress = false;
+                alert_('Բառերի ցանկում այս բառը չկա');
+            }
         } else {
             enterInProgress = false;
         }
@@ -272,4 +270,11 @@ function copyEmoji() {
             alert_('Չստացվեց');
         }
     }
+}
+
+function checkWord(word) {
+    if (words.indexOf(word.toLowerCase()) == -1) {
+        return false;
+    }
+    return true;
 }
