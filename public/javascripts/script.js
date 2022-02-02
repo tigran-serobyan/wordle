@@ -222,7 +222,7 @@ function endScreen() {
             count++;
         }
     }
-    share.text = emoji.slice(0, -1);
+    share.text = 'Բառուկ ' + wordNumber + ' ' + count + '/6 \n' +emoji.slice(0, -1);
     share.title = 'Բառուկ ' + wordNumber + ' ' + count + '/6';
     _share.innerHTML += '<button class="shareButton" onclick="copyEmoji()">Կիսվել</button>';
     document.getElementsByTagName('main')[0].appendChild(_share);
