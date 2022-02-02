@@ -265,19 +265,22 @@ function copyEmoji() {
     if (navigator.share) {
         navigator.share(share).then(() => {
         }).catch(err => {
-            var emoji = document.getElementById('emoji');
+            var emoji = document.createElement('textarea');
             emoji.innerText = share.title + '\n' + share.text
             emoji.focus();
             emoji.select();
             try {
-                var successful = document.execCommand('share');
+                var successful = document.execCommand('copy');
                 alert_('Պատճենված', false);
+                emoji.remove();
             } catch (err) {
                 alert_('Չստացվեց', false);
+                emoji.remove();
             }
         });
     } else {
         var emoji = document.createElement('textarea');
+        emoji.innerText = share.title + '\n' + share.text
         emoji.focus();
         emoji.select();
         try {
