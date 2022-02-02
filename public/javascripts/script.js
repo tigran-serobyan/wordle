@@ -206,9 +206,9 @@ function checkAll() {
 }
 
 function endScreen() {
-    let share = document.createElement('div');
-    share.setAttribute('class', 'share');
-    share.innerHTML = '<span onclick="c()" class="close"></span><p>Այսօրվա բառը։ ' + word.join('') + '</p>';
+    let _share = document.createElement('div');
+    _share.setAttribute('class', 'share');
+    _share.innerHTML = '<span onclick="c()" class="close"></span><p>Այսօրվա բառը։ ' + word.join('') + '</p>';
     let emoji = '';
     let letters = document.getElementsByClassName("guessLetter");
     let count = 0;
@@ -224,8 +224,8 @@ function endScreen() {
     }
     share.text = emoji.slice(0, -1);
     share.title = 'Բառուկ ' + wordNumber + ' ' + count + '/6';
-    share.innerHTML += '<button class="shareButton" onclick="copyEmoji()">Կիսվել</button>';
-    document.getElementsByTagName('main')[0].appendChild(share);
+    _share.innerHTML += '<button class="shareButton" onclick="copyEmoji()">Կիսվել</button>';
+    document.getElementsByTagName('main')[0].appendChild(_share);
 }
 
 function main() {
