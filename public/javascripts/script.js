@@ -1,5 +1,6 @@
 let word = [];
 let history;
+let share = { title: '', text: '' }
 
 let currentWord = [];
 let guessCount = 0;
@@ -127,10 +128,10 @@ function keyboard() {
     }
 }
 
-function alert_(data, shake=true) {
+function alert_(data, shake = true) {
     let alert = document.createElement('p');
     alert.setAttribute('class', 'alert');
-    if(shake){
+    if (shake) {
         document.getElementsByClassName('guessRow')[guessCount].setAttribute('class', 'guessRow shake');
     }
     alert.innerText = data;
@@ -138,7 +139,7 @@ function alert_(data, shake=true) {
     setTimeout(() => {
         alert.remove();
     }, 1000);
-    if(shake){
+    if (shake) {
         setTimeout(() => {
             document.getElementsByClassName('guessRow')[guessCount].setAttribute('class', 'guessRow');
         }, 500);
@@ -221,9 +222,9 @@ function endScreen() {
             count++;
         }
     }
-    emoji = emoji.slice(0, -1);
-    emoji = 'Բառուկ ' + wordNumber + ' ' + count + '/6 \n' + emoji;
-    share.innerHTML += '<textarea id="emoji">' + emoji + '</textarea> <button class="shareButton" onclick="copyEmoji()">Կիսվել</button>';
+    share.text = emoji.slice(0, -1);
+    share.title = 'Բառուկ ' + wordNumber + ' ' + count + '/6';
+    share.innerHTML += '<button class="shareButton" onclick="copyEmoji()">Կիսվել</button>';
     document.getElementsByTagName('main')[0].appendChild(share);
 }
 
@@ -261,31 +262,33 @@ function c() {
 }
 
 function copyEmoji() {
-
     if (navigator.share) {
-        navigator.share({ text: document.getElementById('emoji').innerText }).then(() => {
+        navigator.share(share).then(() => {
         }).catch(err => {
-         var emoji = document.getElementById('emoji');
-         emoji.focus();
-         emoji.select();
-         try {
-             var successful = document.execCommand('share');
-             alert_('Պատճենված', false);
-         } catch (err) {
-             alert_('Չստացվեց', false);
-         }
-         });
-     } else{
-         var emoji = document.getElementById('emoji');
-         emoji.focus();
-         emoji.select();
-         try {
-             var successful = document.execCommand('share');
-             alert_('Պատճենված');
-         } catch (err) {
-             alert_('Չստացվեց');
-         }
-     }
+            var emoji = document.getElementById('emoji');
+            emoji.innerText = share.title + '\n' + share.text
+            emoji.focus();
+            emoji.select();
+            try {
+                var successful = document.execCommand('share');
+                alert_('Պատճենված', false);
+            } catch (err) {
+                alert_('Չստացվեց', false);
+            }
+        });
+    } else {
+        var emoji = document.createElement('textarea');
+        emoji.focus();
+        emoji.select();
+        try {
+            var successful = document.execCommand('copy');
+            alert_('Պատճենված');
+            emoji.remove()
+        } catch (err) {
+            emoji.remove()
+            alert_('Չստացվեց');
+        }
+    }
 }
 
 function checkWord(word) {
