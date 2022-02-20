@@ -1,6 +1,6 @@
 let word = [];
 let history;
-let share = { title: '', text: '' }
+let share = { title: '', text: '', url: window.location.origin}
 
 let currentWord = [];
 let guessCount = 0;
@@ -31,60 +31,62 @@ function enter() {
     if (!enterInProgress) {
         enterInProgress = true;
         if (currentWord.length == 5) {
-            if (checkWord(currentWord.join(''))) {
-                let guessRight = true;
-                history.push(currentWord);
-                localStorage.setItem('history', JSON.stringify(history));
-                let guessRows = document.getElementsByClassName("guessRow");
-                let letters = guessRows[guessCount].getElementsByClassName("guessLetter");
-                for (let i in currentWord) {
-                    setTimeout(() => {
-                        let k = [];
-                        for (let j in word) {
-                            if (word[j] == currentWord[i]) {
-                                k.push(j);
-                            }
-                        }
-                        if (k.length > 1) {
-                            let right = true;
-                            for (let j of k) {
-                                if (currentWord[j] != word[j]) {
-                                    right = false;
+            axios.get('/checkWord/' + currentWord.join('')).then(function (response) {
+                if (response.data) {
+                    let guessRight = true;
+                    history.push(currentWord);
+                    localStorage.setItem('history', JSON.stringify(history));
+                    let guessRows = document.getElementsByClassName("guessRow");
+                    let letters = guessRows[guessCount].getElementsByClassName("guessLetter");
+                    for (let i in currentWord) {
+                        setTimeout(() => {
+                            let k = [];
+                            for (let j in word) {
+                                if (word[j] == currentWord[i]) {
+                                    k.push(j);
                                 }
                             }
-                            if (right && word[i] == letters[i].innerText) {
-                                letters[i].setAttribute('class', "guessLetter right");
+                            if (k.length > 1) {
+                                let right = true;
+                                for (let j of k) {
+                                    if (currentWord[j] != word[j]) {
+                                        right = false;
+                                    }
+                                }
+                                if (right && word[i] == letters[i].innerText) {
+                                    letters[i].setAttribute('class', "guessLetter right");
+                                } else {
+                                    letters[i].setAttribute('class', "guessLetter hit");
+                                    guessRight = false;
+                                }
+                            } else if (k.length == 1) {
+                                if (k[0] == i) {
+                                    letters[i].setAttribute('class', "guessLetter right");
+                                } else if (k[0]) {
+                                    letters[i].setAttribute('class', "guessLetter hit");
+                                    guessRight = false;
+                                }
                             } else {
-                                letters[i].setAttribute('class', "guessLetter hit");
+                                letters[i].setAttribute('class', "guessLetter wrong");
                                 guessRight = false;
                             }
-                        } else if (k.length == 1) {
-                            if (k[0] == i) {
-                                letters[i].setAttribute('class', "guessLetter right");
-                            } else if (k[0]) {
-                                letters[i].setAttribute('class', "guessLetter hit");
-                                guessRight = false;
-                            }
-                        } else {
-                            letters[i].setAttribute('class', "guessLetter wrong");
-                            guessRight = false;
-                        }
-                    }, i * 200);
-                }
-                setTimeout(() => {
-                    guessCount += 1;
-                    currentWord = [];
-                    keyboard();
-                    enterInProgress = false;
-                    if (guessRight || guessCount == 6) {
-                        endOfGame = true;
-                        endScreen();
+                        }, i * 200);
                     }
-                }, 1500);
-            } else {
-                enterInProgress = false;
-                alert_('Բառերի ցանկում այս բառը չկա');
-            }
+                    setTimeout(() => {
+                        guessCount += 1;
+                        currentWord = [];
+                        keyboard();
+                        enterInProgress = false;
+                        if (guessRight || guessCount == 6) {
+                            endOfGame = true;
+                            endScreen();
+                        }
+                    }, 1500);
+                } else {
+                    enterInProgress = false;
+                    alert_('Բառերի ցանկում այս բառը չկա');
+                }
+            });
         } else {
             enterInProgress = false;
         }
@@ -222,7 +224,7 @@ function endScreen() {
             count++;
         }
     }
-    share.text = 'Բառուկ ' + wordNumber + ' ' + count + '/6 \n' +emoji.slice(0, -1);
+    share.text = 'Բառուկ ' + wordNumber + ' ' + count + '/6 \n' + emoji.slice(0, -1);
     share.title = 'Բառուկ ' + wordNumber + ' ' + count + '/6';
     _share.innerHTML += '<button class="shareButton" onclick="copyEmoji()">Կիսվել</button>';
     document.getElementsByTagName('main')[0].appendChild(_share);
@@ -292,11 +294,4 @@ function copyEmoji() {
             alert_('Չստացվեց');
         }
     }
-}
-
-function checkWord(word) {
-    if (words.indexOf(word.toLowerCase()) == -1) {
-        return false;
-    }
-    return true;
 }
