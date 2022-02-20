@@ -1,408 +1,517 @@
 @font-face {
-	font-family: WorkSans;
-	src        : url(WorkSans.ttf)
+  font-family: WorkSans;
+  src        : url(WorkSans.ttf)
 }
 
 @font-face {
-	font-family: DejaVu;
-	src        : url(DejaVu.ttf)
+  font-family: DejaVu;
+  src        : url(DejaVu.ttf)
 }
 
-*{
-  font-family: WorkSans, DejaVu, Arial, sans;
+* {
+  font-family : WorkSans, DejaVu, Arial, sans;
   touch-action: manipulation;
 }
 
-nav{
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  border-bottom: 1px solid #222;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
+nav {
+  position       : fixed;
+  top            : 0;
+  left           : 0;
+  right          : 0;
+  border-bottom  : 1px solid #222;
+  display        : flex;
+  flex-direction : row;
+  flex-wrap      : nowrap;
   justify-content: center;
-  align-items: center;
+  align-items    : center;
+  background     : #121213;
 }
 
-h1{
-  color: white;
-  text-align: center;
-  font-size: 4.5vh;
-  margin: 0.5vh 0.5vh 1vh;
+h1 {
+  color         : white;
+  text-align    : center;
+  font-size     : 4.4vh;
+  margin        : 0.5vh 0.5vh 2vh;
   letter-spacing: 3px;
-  font-family: sans-serif;
+  font-family   : sans-serif;
+  display       : inline-block;
+  position      : relative;
 }
 
-h1::after{
-  content: "ԱՐԵՒԵԼԱՀԱՅԵՐԵՆ";
-  position: absolute;
-  top: 5.55vh;
-  margin-left: -12.7vh;
-  font-size: 1vh;
+h1::after {
+  content       : "ԱՐԵՒԵԼԱՀԱՅԵՐԵՆ";
+  position      : absolute;
+  bottom        : -1.2vh;
+  right         : 0;
+  font-size     : 1vh;
   letter-spacing: 0.2vh;
-  color: #6ab365;
+  color         : #6ab365;
 }
 
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background: #6aaa64;
-  margin: 0;
+  padding     : 50px;
+  font        : 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background  : #6aaa64;
+  margin      : 0;
   touch-action: manipulation;
 }
-main{
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
+
+main {
+  position  : absolute;
+  left      : 0;
+  right     : 0;
+  top       : 0;
+  bottom    : 0;
   background: #121213;
 }
 
-.keyboard{
-  width: ~"min(100vw, 55vh)";
+.keyboard {
+  width   : ~"min(100vw, 55vh)";
   position: absolute;
-  bottom: 0;
-  left: ~"calc((100vw - min(100vw, 55vh))/2)";
+  bottom  : 0;
+  left    : ~"calc((100vw - min(100vw, 55vh))/2)";
 }
 
-.keyboardRow{
-  width: 100%;
-  height: 6vh;
-  margin-bottom: 0.5vh;
-  text-align: center;
-  display: flex;
-  flex-wrap: nowrap;
+.keyboardRow {
+  width          : 100%;
+  height         : 6vh;
+  margin-bottom  : 0.5vh;
+  text-align     : center;
+  display        : flex;
+  flex-wrap      : nowrap;
   justify-content: space-evenly;
-  align-items: center;
+  align-items    : center;
 }
 
-.letter, .button{
-  height: 6vh;
-  background: #575a5a;
-  border: none;
-  color: white;
-  font-size: ~"calc(min(100vw, 50vh)/33)";
-  text-align: center;
-  box-sizing: border-box;
+.letter,
+.button {
+  height       : 6vh;
+  background   : #575a5a;
+  border       : none;
+  color        : white;
+  font-size    : ~"calc(min(100vw, 50vh)/33)";
+  text-align   : center;
+  box-sizing   : border-box;
   border-radius: 5px;
-  font-weight: 800;
+  font-weight  : 800;
 }
 
-.letter{
-  width: 8%;
+.letter {
+  width  : 8%;
   padding: 0;
 }
 
-.keyboardRow:nth-of-type(3) .letter{
+.keyboardRow:nth-of-type(3) .letter {
   width: 9%;
 }
-.keyboardRow:nth-of-type(4) .letter{
+
+.keyboardRow:nth-of-type(4) .letter {
   width: 8.5%;
 }
 
-.button{
-  width: 17%;
+.button {
+  width     : 17%;
   background: #393a3a;
 }
 
-.backspace{
-  width: 13%;
+.backspace {
+  width  : 13%;
   padding: 0;
 }
 
-.backspace::after{
-  content: "ՀԵՏ";
-  position: absolute;
+.backspace::after {
+  content  : "ՀԵՏ";
+  position : absolute;
   transform: translate(-50%, -50%);
 }
 
-.guesses{
+.guesses {
   position: absolute;
-  bottom: 30vh;
-  top: 13vh;
-  left: 5vw;
-  right: 5vw;
+  bottom  : 30vh;
+  top     : 13vh;
+  left    : 5vw;
+  right   : 5vw;
 }
 
-#doubleLetter{
-  display: none;
-  position: absolute;
-  top: -45px;
-  right: ~"calc(89.6vw / 2 - calc(55vh / 7 -  0.1vh) * 2.5)";
-  text-align: center;
-  color: white;
-  background: #c0a427;
-  padding: 4px 10px 4px 20px;
-  border-radius: 20px;
-  width: max-content;
-  font-size: 12px;
-  animation: shake 0.5s linear 1s 1;
+#doubleLetter {
+  display      : none;
+  position     : absolute;
+  top          : -4.6vh;
+  right        : ~"calc(89.6vw / 2 - calc(55vh / 7 -  0.1vh) * 2.5)";
+  text-align   : center;
+  color        : white;
+  background   : #c0a427;
+  padding      : 0.8vh 1.4vh 0.7vh 2.8vh;
+  border-radius: 2vh;
+  width        : max-content;
+  font-size    : 1.2vh;
+  animation    : shake 0.3s linear 0.5s 1;
 }
 
-#doubleLetter::before{
-  content:'*';
-  position: absolute;
-  font-size: 30px;
-  left: 7px;
-  top: -0.5px;
+#doubleLetter::before {
+  content    : '*';
+  position   : absolute;
+  font-size  : 4vh;
+  left       : 0.8vh;
+  top        : 0.05vh;
   font-family: sans-serif;
 }
 
-.guessRow{
-  height: ~"calc(57vh / 7 - 0.1vh)";
-  width: 89.6vw;
-  text-align: center;
-  display: flex;
+.guessRow {
+  height         : ~"calc(57vh / 7 - 0.1vh)";
+  width          : 89.6vw;
+  text-align     : center;
+  display        : flex;
   justify-content: center;
 }
 
-.guessLetter{
-  display: inline-block;
-  width: ~"calc(57vh / 7 - 0.5vh)";
-  height: ~"calc(57vh / 7 - 0.5vh)";
-  margin: 0.1vh 0.25vh;
-  background: #121213;
-  border: solid 2px #3f4141;
-  box-sizing: border-box;
-  color: white;
-  font-size: ~"calc(29vh / 7 - 0.5vh)";
-  font-weight: 900;
-  padding: 1.5vh 0;
-  text-align: center;
-  transform-style: preserve-3d;
-  animation-duration: 0.6s;
+.guessLetter {
+  display                  : inline-block;
+  width                    : ~"calc(57vh / 7 - 0.5vh)";
+  height                   : ~"calc(57vh / 7 - 0.5vh)";
+  margin                   : 0.1vh 0.25vh;
+  background               : #121213;
+  border                   : solid 2px #3f4141;
+  box-sizing               : border-box;
+  color                    : white;
+  font-size                : ~"calc(29vh / 7 - 0.5vh)";
+  font-weight              : 900;
+  padding                  : 1.5vh 0;
+  text-align               : center;
+  transform-style          : preserve-3d;
+  animation-duration       : 0.6s;
   animation-timing-function: ease-in-out;
 }
-.guessLetter.wrong{
+
+.guessLetter.wrong {
   animation-name: flipWrong;
 }
-.guessLetter.hit{
+
+.guessLetter.hit {
   animation-name: flipHit;
 }
-.guessLetter.right{
+
+.guessLetter.right {
   animation-name: flipRight;
 }
 
-@keyframes flipWrong{
-  0%{
-    background: #121213;
+@keyframes flipWrong {
+  0% {
+    background  : #121213;
     border-color: #3f4141;
-    transform: rotateX(0deg);
+    transform   : rotateX(0deg);
   }
-  49%{
-    background: #121213;
+
+  49% {
+    background  : #121213;
     border-color: #3f4141;
   }
-  50%{
-    background: #242525;
+
+  50% {
+    background  : #242525;
     border-color: #242525;
-    transform: rotateX(90deg);
+    transform   : rotateX(90deg);
   }
-  100%{
-    transform: rotateX(0deg);
-    background: #242525;
+
+  100% {
+    transform   : rotateX(0deg);
+    background  : #242525;
     border-color: #242525;
   }
 }
-@keyframes flipHit{
-  0%{
-    background: #121213;
+
+@keyframes flipHit {
+  0% {
+    background  : #121213;
     border-color: #3f4141;
-    transform: rotateX(0deg);
+    transform   : rotateX(0deg);
   }
-  49%{
-    background: #121213;
+
+  49% {
+    background  : #121213;
     border-color: #3f4141;
   }
-  50%{
-    background: #c0a427;
+
+  50% {
+    background  : #c0a427;
     border-color: #c0a427;
-    transform: rotateX(90deg);
+    transform   : rotateX(90deg);
   }
-  100%{
-    transform: rotateX(0deg);
-    background: #c0a427;
+
+  100% {
+    transform   : rotateX(0deg);
+    background  : #c0a427;
     border-color: #c0a427;
   }
 }
-@keyframes flipRight{
-  0%{
-    background: #121213;
+
+@keyframes flipRight {
+  0% {
+    background  : #121213;
     border-color: #3f4141;
-    transform: rotateX(0deg);
+    transform   : rotateX(0deg);
   }
-  49%{
-    background: #121213;
+
+  49% {
+    background  : #121213;
     border-color: #3f4141;
   }
-  50%{
-    background: #4d9947;
+
+  50% {
+    background  : #4d9947;
     border-color: #4d9947;
-    transform: rotateX(90deg);
+    transform   : rotateX(90deg);
   }
-  100%{
-    transform: rotateX(0deg);
-    background: #4d9947;
+
+  100% {
+    transform   : rotateX(0deg);
+    background  : #4d9947;
     border-color: #4d9947;
   }
 }
 
-.wrong{
-  background: #242525;
+.wrong {
+  background  : #242525;
   border-color: #242525;
 }
 
-.hit{
-  background: #c0a427;
+.hit {
+  background  : #c0a427;
   border-color: #c0a427;
 }
 
-.right{
-  background: #4d9947;
+.right {
+  background  : #4d9947;
   border-color: #4d9947;
 }
 
-.alert{
-  background: rgba(0,0,0,0.6);
-  backdrop-filter: blur(4px);
+.alert {
+  background             : rgba(0, 0, 0, 0.6);
+  backdrop-filter        : blur(4px);
   -webkit-backdrop-filter: blur(4px);
-  padding: 20px;
-  max-width: 80vw;
-  width: max-content;
-  position: absolute;
-  top: 15vh;
-  text-align: center;
-  left: 50%;
-  transform: translate(-50%);
-  color: white;
-  border-radius: 20px;
-  font-size: 24px;
-  animation: alert 1s linear;
-  z-index: 15;
+  padding                : 20px;
+  max-width              : 80vw;
+  width                  : max-content;
+  position               : absolute;
+  top                    : 15vh;
+  text-align             : center;
+  left                   : 50%;
+  transform              : translate(-50%);
+  color                  : white;
+  border-radius          : 20px;
+  font-size              : 24px;
+  animation              : alert 1s linear;
+  z-index                : 15;
 }
 
-.share{
-  background: #111;
-  border: solid 1px #222;
-  padding: 20px;
-  max-width: 85vw;
-  width: max-content;
-  position: absolute;
-  top: 40vh;
-  text-align: center;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: white;
-  border-radius: 10px;
-  font-size: 24px;
-  animation: slideUp 0.2s linear;
-  z-index: 10;
+.share {
+  background   : #111;
+  border       : solid 1px #222;
+  padding      : 20px;
+  width        : 85vw;
+  position     : absolute;
+  top          : 40vh;
+  text-align   : center;
+  left         : 50%;
+  transform    : translate(-50%, -50%);
+  color        : white;
+  border-radius: 2vh;
+  font-size    : 2.5vh;
+  animation    : slideUp 0.2s linear;
+  z-index      : 10;
 }
 
-.close{
-  position: absolute;
-  right: 20px;
-  top: 10px;
-  width: 25px;
-  height: 25px;
+button {
+  background   : #4d9947;
+  border       : none;
+  font-size    : 2vh;
+  padding      : 0.7em 1em;
+  border-radius: 1em;
+  color        : white;
 }
 
-.close::before{
+.close {
   position: absolute;
-  content:'';
-  display: block;
+  right   : 20px;
+  top     : 10px;
+  width   : 25px;
+  height  : 25px;
+}
+
+.close::before {
+  position  : absolute;
+  content   : '';
+  display   : block;
   background: #575a5a;
-  width: 1px;
-  height: 20px;
-  transform: rotate(45deg) translate(10px, -7px);
-}
-.close::after{
-  position: absolute;
-  content:'';
-  display: block;
-  background: #575a5a;
-  width: 1px;
-  height: 20px;
-  transform: rotate(-45deg) translate(7px, 10px);
+  width     : 1px;
+  height    : 20px;
+  transform : rotate(45deg) translate(10px, -7px);
 }
 
-.emoji{
-  line-height: 1.1;
+.close::after {
+  position  : absolute;
+  content   : '';
+  display   : block;
+  background: #575a5a;
+  width     : 1px;
+  height    : 20px;
+  transform : rotate(-45deg) translate(7px, 10px);
+}
+
+.emoji {
+  line-height   : 1.1;
   letter-spacing: 2px;
 }
 
 @keyframes alert {
-  0%{
+  0% {
     opacity: 0;
   }
-  10%{
+
+  10% {
     opacity: 1;
   }
-  90%{
+
+  90% {
     opacity: 1;
   }
-  100%{
+
+  100% {
     opacity: 0;
   }
 }
 
 @keyframes slideUp {
-  0%{
-    top: 45vh;
+  0% {
+    top    : 45vh;
     opacity: 0;
   }
-  50%{
-    top: 42vh;
+
+  50% {
+    top    : 42vh;
     opacity: 0.2;
   }
-  100%{
-    top: 40vh;
+
+  100% {
+    top    : 40vh;
     opacity: 1;
   }
 }
 
-textarea{
+textarea {
   margin: 2vw 3vw;
-  width: 25vw;
+  width : 25vw;
   height: 85vh;
 }
 
-textarea:nth-child(2){
+textarea:nth-child(2) {
   margin: 2vw 0;
 }
 
-.shake{
+.shake {
   animation: shake 0.35s linear;
 }
 
-@keyframes shake{
-  0%{
+@keyframes shake {
+  0% {
     transform: translate(0, 0);
   }
-  12.5%{
+
+  12.5% {
     transform: translate(-3%, 0);
   }
-  37.5%{
+
+  37.5% {
     transform: translate(3%, 0);
   }
-  62.5%{
+
+  62.5% {
     transform: translate(-3%, 0);
   }
-  87.5%{
+
+  87.5% {
     transform: translate(3%, 0);
   }
-  100%{
+
+  100% {
     transform: translate(0, 0);
   }
 }
 
-#emoji{
+#emoji {
   position: fixed;
-  left: -10000px;
-  top: -100000px;
-  width: 10px;
-  height: 10px;
+  left    : -10000px;
+  top     : -100000px;
+  width   : 10px;
+  height  : 10px;
+}
+
+#intro {
+  position     : absolute;
+  top          : 50%;
+  left         : 50%;
+  transform    : translate(-50%, -50%);
+  width        : ~"min(93vw, 45vh)";
+  padding      : 1.5vw 2.5vw;
+  background   : #111;
+  border       : solid 2px #333;
+  border-radius: 5px;
+  color        : #fff;
+  font-size    : 1.7vh;
+}
+
+#intro .guessLetter {
+  width       : calc(38vh / 7 - 0.5vh);
+  height      : calc(38vh / 7 - 0.5vh);
+  margin      : 0.125vh;
+  font-size   : calc(19vh / 7 - 0.5vh);
+  padding     : 1vh 0;
+  border-width: 0.15vh;
+}
+
+h3 {
+  font-size: 2.7vh;
+}
+
+#intro p:nth-last-child(1) {
+  font-size: 1.8vh;
+}
+
+#intro b {
+  font-size: 1.9vh;
+}
+
+#start,
+.blur {
+  position               : fixed;
+  top                    : 0;
+  left                   : 0;
+  right                  : 0;
+  bottom                 : 0;
+  background             : rgba(0, 0, 0, 0.4);
+  backdrop-filter        : blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+
+.b {
+  border-bottom : solid 1px #333;
+  padding-bottom: 1em;
+}
+
+.help,
+.none {
+  color        : white;
+  padding      : 0.3vh;
+  border       : white solid 1px;
+  margin       : 1.5vh 5.5vh 1.5vh 0;
+  width        : 1.2em;
+  height       : 1.2em;
+  text-align   : center;
+  border-radius: 1.2em;
+  font-size    : 2.2vh;
+  font-weight  : 600;
+}
+
+.none {
+  border: none;
 }

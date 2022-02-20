@@ -1,12 +1,29 @@
 let word = [];
 let history;
-let share = { title: '', text: '', url: window.location.origin}
+let share = { title: '', text: '', url: window.location.origin }
 
 let currentWord = [];
 let guessCount = 0;
 let enterInProgress = false;
 
 let endOfGame = false;
+
+function start() {
+    if (!localStorage.getItem('a') && !localStorage.getItem('history')) {
+        localStorage.setItem('a', 'a');
+        openH();
+    } else {
+        closeH();
+    }
+}
+
+function closeH() {
+    document.getElementById('start').style.display = "none";
+}
+
+function openH() {
+    document.getElementById('start').style.display = "block";
+}
 
 function letter(letter) {
     if (currentWord.length < 5 && !endOfGame && !enterInProgress) {
@@ -227,7 +244,10 @@ function endScreen() {
     share.text = 'Բառուկ ' + wordNumber + ' ' + count + '/6 \n' + emoji.slice(0, -1);
     share.title = 'Բառուկ ' + wordNumber + ' ' + count + '/6';
     _share.innerHTML += '<button class="shareButton" onclick="copyEmoji()">Կիսվել</button>';
-    document.getElementsByTagName('main')[0].appendChild(_share);
+    _blur = document.createElement('div');
+    _blur.setAttribute("class", "blur");
+    _blur.appendChild(_share);
+    document.getElementsByTagName('main')[0].appendChild(_blur);
 }
 
 function main() {
@@ -260,7 +280,10 @@ function main() {
 }
 
 function c() {
-    document.getElementsByClassName("share")[0].remove();
+    let blur = document.getElementsByClassName("blur");
+    for (let i of blur) {
+        i.remove();
+    }
 }
 
 function copyEmoji() {

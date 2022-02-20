@@ -1,19 +1,60 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>{{ title }}</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  </head>
-  <body>
-    {% block body %}{% endblock %}
-    <script src="/javascripts/script.js"></script>
-    <script>
-      let _word = "{{word}}";
-      let wordNumber = "{{wordNumber}}";
-      main();
-  </script>
-  </body>
+	<head>
+		<title>{{ title }}</title>
+		<link rel='stylesheet' href='/stylesheets/style.css'/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	</head>
+	<body>
+		{% block body %}{% endblock %}
+		<div id="start">
+			<div id="intro">
+        <span class="close" onclick="closeH()"></span>
+				<h3>Խաղի կանոնները</h3>
+				<p class="b">
+					Գուշակիր օրվա
+					<b>ԲԱՌՈՒԿԸ</b>
+					վեց փորձից։
+					<br>
+					<br>
+					Յուրաքանչյուր փորձը պետք է լինի հինգ տառանոց վավեր բառ։ Սեղմի՛ր ՄՈՒՏՔ կոճակին հաստատելու համար։
+					<br>
+					<br>
+					Հաստատելուց հետո, տուփերի գույները կփոխվեն, ցույց տալով, թե քո կռահումն ինչքանով է մոտ օրվա
+					<b>ԲԱՌՈՒԿԻՆ</b>
+				</p>
+				<h3>Օրինակ</h3>
+				<span class="guessLetter right">Գ</span>
+				<span class="guessLetter">Ի</span>
+				<span class="guessLetter">Տ</span>
+				<span class="guessLetter">ՈՒ</span>
+				<span class="guessLetter">Ն</span>
+				<p>Գ տառը բառի մեջ է և ճիշտ դիրքում է</p>
+				<span class="guessLetter">Խ</span>
+				<span class="guessLetter">Ն</span>
+				<span class="guessLetter hit">Ձ</span>
+				<span class="guessLetter">Ո</span>
+				<span class="guessLetter">Ր</span>
+				<p>Ձ տառը բառի մեջ է, սակայն սխալ դիրքում</p>
+				<span class="guessLetter">Ս</span>
+				<span class="guessLetter">Ե</span>
+				<span class="guessLetter">Ղ</span>
+				<span class="guessLetter">Ա</span>
+				<span class="guessLetter wrong">Ն</span>
+				<p class="b">Ն տառը բառի մեջ չէ ընդհանրապես</p>
+				<p>Նոր
+					<b>ԲԱՌՈՒԿ</b>
+					հասանելի կլինի ամե՛ն օր։</p>
+			</div>
+		</div>
+		<script src="/javascripts/script.js"></script>
+		<script>
+			let _word = "{{ word }}";
+let wordNumber = "{{ wordNumber }}";
+main();
+start();
+		</script>
+	</body>
 </html>
