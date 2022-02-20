@@ -87,9 +87,6 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/checkWord/:word', function (req, res, next) {
-  for(let i of words){
-    console.log(req.params.word.toLowerCase()== i);
-  }
   if (words.indexOf(req.params.word.toLowerCase()) == -1) {
     res.send(false);
     if (repeatingWords.indexOf(req.params.word.toLowerCase()) == -1) {
