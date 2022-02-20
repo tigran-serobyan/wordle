@@ -10,7 +10,7 @@ var _date = date.getUTCDay();
 var wordOfTheDay = '';
 
 fs.readFile('./swords.txt', function (err, data) {
-  let swords_ = data.toString('utf-8').split('\r\n');
+  let swords_ = data.toString('utf-8').split('\n');
   for (let w of swords_) {
     if (swords.indexOf(w) == -1) {
       swords.push(w);
@@ -20,18 +20,18 @@ fs.readFile('./swords.txt', function (err, data) {
   let i = Math.floor(Math.random() * swords.length);
   wordOfTheDay = swords[i].toUpperCase();
   swords.splice(i, 1);
-  fs.writeFile('./swords.txt', swords.join('\r\n'), function (err) {
+  fs.writeFile('./swords.txt', swords.join('\n'), function (err) {
     if (err) {
       console.log(err);
     } else {
       fs.readFile('./nonRepeatingWords.txt', function (err, data) {
-        let words_ = data.toString('utf-8').split('\r\n');
+        let words_ = data.toString('utf-8').split('\n');
         for (let w of words_) {
           nonRepeatingWords.push(w);
         }
         nonRepeatingWords.sort()
         fs.readFile('./words.txt', function (err, data) {
-          let words_ = data.toString('utf-8').split('\r\n');
+          let words_ = data.toString('utf-8').split('\n');
           for (let w of words_) {
             if (words.indexOf(w) == -1) {
               words.push(w);
@@ -39,22 +39,22 @@ fs.readFile('./swords.txt', function (err, data) {
           }
           words.sort();
           fs.readFile('./repeatingWords.txt', function (err, data) {
-            let words_ = data.toString('utf-8').split('\r\n');
+            let words_ = data.toString('utf-8').split('\n');
             for (let w of words_) {
               if (words.indexOf(w) == -1) {
                 repeatingWords.push(w);
               }
             }
             repeatingWords.sort();
-            fs.writeFile('./repeatingWords.txt', repeatingWords.join('\r\n'), function (err) {
+            fs.writeFile('./repeatingWords.txt', repeatingWords.join('\n'), function (err) {
               if (err) {
                 console.log(err);
               } else {
-                fs.writeFile('./words.txt', words.join('\r\n'), function (err) {
+                fs.writeFile('./words.txt', words.join('\n'), function (err) {
                   if (err) {
                     console.log(err);
                   } else {
-                    fs.writeFile('./nonRepeatingWords.txt', nonRepeatingWords.join('\r\n'), function (err) {
+                    fs.writeFile('./nonRepeatingWords.txt', nonRepeatingWords.join('\n'), function (err) {
                       if (err) {
                         console.log(err);
                       }
@@ -77,7 +77,7 @@ router.get('/', function (req, res, next) {
     let i = Math.floor(Math.random() * swords.length);
     wordOfTheDay = swords[i].toUpperCase();
     swords.splice(i, 1);
-    fs.writeFile('./swords.txt', swords.join('\r\n'), function (err) {
+    fs.writeFile('./swords.txt', swords.join('\n'), function (err) {
       if (err) {
         console.log(err);
       }
@@ -94,7 +94,7 @@ router.get('/checkWord/:word', function (req, res, next) {
     res.send(false);
     if (repeatingWords.indexOf(req.params.word.toLowerCase()) == -1) {
       repeatingWords.push(req.params.word.toLowerCase());
-      fs.writeFile('./repeatingWords.txt', repeatingWords.join('\r\n'), function (err) {
+      fs.writeFile('./repeatingWords.txt', repeatingWords.join('\n'), function (err) {
         if (err) {
           console.log(err);
         }
@@ -104,7 +104,7 @@ router.get('/checkWord/:word', function (req, res, next) {
     res.send(true);
     if (nonRepeatingWords.indexOf(req.params.word.toLowerCase()) != -1) {
       nonRepeatingWords.splice(nonRepeatingWords.indexOf(req.params.word.toLowerCase()), 1);
-      fs.writeFile('./nonRepeatingWords.txt', nonRepeatingWords.join('\r\n'), function (err) {
+      fs.writeFile('./nonRepeatingWords.txt', nonRepeatingWords.join('\n'), function (err) {
         if (err) {
           console.log(err);
         }
