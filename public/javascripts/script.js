@@ -243,6 +243,7 @@ function endScreen() {
     }
     share.text = 'Բառուկ ' + wordNumber + ' ' + count + '/6 \n' + emoji.slice(0, -1);
     share.title = 'Բառուկ ' + wordNumber + ' ' + count + '/6';
+    _share.innerHTML += '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2716546406110493" crossorigin="anonymous"></script> <ins class="adsbygoogle" style="display:block"     data-ad-client="ca-pub-2716546406110493"     data-ad-slot="8437134897"     data-ad-format="auto"     data-full-width-responsive="true"></ins><script>     (adsbygoogle = window.adsbygoogle || []).push({});</script>" ';
     _share.innerHTML += '<button class="shareButton" onclick="copyEmoji()">Կիսվել</button>';
     _blur = document.createElement('div');
     _blur.setAttribute("class", "blur");
