@@ -1,14 +1,18 @@
 let word = [];
 let history;
-let share = { title: '', text: '', url: window.location.origin }
+let share = { title: '', text: '' }
 
 let currentWord = [];
 let guessCount = 0;
 let enterInProgress = false;
 
 let endOfGame = false;
-
+let stats;
 function start() {
+    closeS()
+    stats = JSON.parse(localStorage.getItem('stats') ? localStorage.getItem('stats') : '[]');
+    stats[wordNumber - 2] = stats[wordNumber - 2] ? stats[wordNumber - 2] : null;
+    localStorage.setItem('stats', JSON.stringify(stats));
     if (!localStorage.getItem('a') && !localStorage.getItem('history')) {
         localStorage.setItem('a', 'a');
         openH();
@@ -17,12 +21,27 @@ function start() {
     }
 }
 
+let intro = document.getElementById('intro')
 function closeH() {
     document.getElementById('start').style.display = "none";
+    intro.id = "";
 }
 
 function openH() {
     document.getElementById('start').style.display = "block";
+    intro.id = "intro";
+}
+
+let statsd = document.getElementById('stats')
+function closeS() {
+    document.getElementById('stats_').style.display = "none";
+    statsd.id = "";
+}
+
+function openS() {
+    showStats();
+    document.getElementById('stats_').style.display = "block";
+    statsd.id = "stats";
 }
 
 function letter(letter) {
@@ -241,14 +260,16 @@ function endScreen() {
             count++;
         }
     }
-    share.text = 'Բառուկ ' + wordNumber + ' ' + count + '/6 \n' + emoji;
-    share.title = 'Բառուկ ' + wordNumber + ' ' + count + '/6';
+    share.text = 'Բառուկ ' + wordNumber + ' ' + (history[history.length - 1].join('') == word.join('')) ? count : 'X' + '/6 \n' + emoji;
+    share.title = 'Բառուկ ' + wordNumber;
     _share.innerHTML += '';
     _share.innerHTML += '<button class="shareButton" onclick="copyEmoji()">Կիսվել</button>';
     _blur = document.getElementsByClassName('blur')[0];
     _blur.lastChild.remove();
     _blur.appendChild(_share);
     _blur.style.display = "block";
+    stats[wordNumber - 1] = (history[history.length - 1].join('') == word.join('')) ? count : 'X';
+    localStorage.setItem('stats', JSON.stringify(stats));
 }
 
 function main() {
@@ -293,6 +314,7 @@ function copyEmoji() {
             emoji.innerText = share.title + '\n' + share.text
             emoji.focus();
             emoji.select();
+            document.appendChild(emoji);
             try {
                 var successful = document.execCommand('copy');
                 alert_('Պատճենված', false);
@@ -307,6 +329,7 @@ function copyEmoji() {
         emoji.innerText = share.title + '\n' + share.text
         emoji.focus();
         emoji.select();
+        document.appendChild(emoji);
         try {
             var successful = document.execCommand('copy');
             alert_('Պատճենված');
@@ -316,4 +339,43 @@ function copyEmoji() {
             alert_('Չստացվեց');
         }
     }
+}
+
+function showStats() {
+    s = true;
+    cStreak = 0;
+    mStreak = 0;
+    gCount = 0;
+    wCount = 0;
+    ms = 0;
+    wStats = [0, 0, 0, 0, 0, 0];
+    for (let i = stats.length - 1; i >= 0; i--) {
+        if (stats[i] == null || stats[i] == 'X') {
+            if (stats[i] == 'X') {
+                gCount++;
+            }
+            s = false;
+            if (ms > mStreak) {
+                mStreak = ms;
+            }
+            ms = 0;
+        } else {
+            if (s) {
+                cStreak++;
+            }
+            ms++;
+            gCount++;
+            wCount++;
+            wStats[stats[i] - 1]++;
+        }
+    }
+    if (ms > mStreak) {
+        mStreak = ms;
+    }
+    wCount = Math.round(wCount / gCount * 100);
+    console.log(cStreak, mStreak, gCount, wCount);
+    document.getElementById('wcount').innerText = wCount + '%';
+    document.getElementById('gcount').innerText = gCount;
+    document.getElementById('cstreak').innerText = cStreak;
+    document.getElementById('mstreak').innerText = mStreak;
 }

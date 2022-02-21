@@ -20,7 +20,7 @@ fs.readFile('./swords.txt', function (err, data) {
   swords.sort()
   let i = Math.floor(Math.random() * swords.length);
   wordOfTheDay = swords[i].toUpperCase();
-wordNumber +=1;
+  wordNumber += 1;
   swords.splice(i, 1);
   fs.writeFile('./swords.txt', swords.join('\n'), function (err) {
     if (err) {
@@ -79,14 +79,14 @@ router.get('/', function (req, res, next) {
     let i = Math.floor(Math.random() * swords.length);
     wordOfTheDay = swords[i].toUpperCase();
     swords.splice(i, 1);
-wordNumber +=1;
+    wordNumber += 1;
     fs.writeFile('./swords.txt', swords.join('\n'), function (err) {
       if (err) {
         console.log(err);
       }
     });
   }
-  res.render('index', { title: 'wordle', word: wordOfTheDay, wordNumber });
+  res.render('index', { title: 'Բառուկ | Արևելահայերեն', word: wordOfTheDay, wordNumber });
 });
 
 router.get('/checkWord/:word', function (req, res, next) {
