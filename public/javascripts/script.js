@@ -241,7 +241,7 @@ function endScreen() {
             count++;
         }
     }
-    share.text = 'Բառուկ ' + wordNumber + ' ' + count + '/6 \n' + emoji.slice(0, -1);
+    share.text = 'Բառուկ ' + wordNumber + ' ' + count + '/6 \n' + emoji;
     share.title = 'Բառուկ ' + wordNumber + ' ' + count + '/6';
     _share.innerHTML += '';
     _share.innerHTML += '<button class="shareButton" onclick="copyEmoji()">Կիսվել</button>';
