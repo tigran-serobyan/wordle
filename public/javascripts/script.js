@@ -272,7 +272,7 @@ function endScreen() {
     shareEmoji = {
         title: '', text: ''
     }
-    shareEmoji.text = 'Բառուկ ' + wordNumber + ' ' + (history[history.length - 1].join('') == word.join('')) ? count : 'X' + '/6 \n' + emoji;
+    shareEmoji.text = 'Բառուկ ' + wordNumber + ' ' + ((history[history.length - 1].join('') == word.join('')) ? count : 'X') + '/6 \n' + emoji;
     shareEmoji.title = 'Բառուկ ' + wordNumber;
     stats[wordNumber - 1] = (history[history.length - 1].join('') == word.join('')) ? count : 'X';
     localStorage.setItem('stats', JSON.stringify(stats));
