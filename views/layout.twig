@@ -3,6 +3,7 @@
 	<head>
 		<title>{{ title }}</title>
 		<link rel='stylesheet' href='/stylesheets/style.css'/>
+		<link rel='icon' href='/stylesheets/images/logo.png'/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -15,9 +16,6 @@
 			(adsbygoogle = window.adsbygoogle || []).push({});
 		</script>
 		{% block body %}{% endblock %}
-		<div class="blur">
-			<span></span>
-		</div>
 		<div id="start">
 			<div id="intro">
 				<span class="close" onclick="closeH()"></span>
@@ -54,7 +52,10 @@
 				<span class="guessLetter">Ղ</span>
 				<span class="guessLetter">Ա</span>
 				<span class="guessLetter wrong">Ն</span>
-				<p class="b">Ն տառը բառի մեջ չէ ընդհանրապես</p>
+				<p>Ն տառը բառի մեջ չէ ընդհանրապես</p>
+				<p>Եթե կա կրկնվող տառ, կհայտնվի՝</p>
+				<p class="doubleLetter">ԿՐԿՆՎՈՂ ՏԱՌ</p>
+				<p class="b"></p>
 				<p>Նոր
 					<b>ԲԱՌՈՒԿ</b>
 					հասանելի կլինի ամե՛ն օր։</p>
@@ -82,6 +83,15 @@
 						<span>Ամենաերկար Հաղթական Շարքը</span>
 					</span>
 				</div>
+				<div id="graph">
+					<span class="guessC"></span>
+					<span class="guessC"></span>
+					<span class="guessC"></span>
+					<span class="guessC"></span>
+					<span class="guessC"></span>
+					<span class="guessC"></span>
+				</div>
+				<button class="shareButton" onclick="copyEmoji()">Կիսվել</button>
 			</div>
 		</div>
 		<script src="/javascripts/script.js"></script>

@@ -1,17 +1,17 @@
 let word = [];
 let history;
-let share = { title: '', text: '' }
+let shareEmoji = { title: 'Բառուկ', text: 'բառուկ.հայ\nԱմենօրյա բառախաղ', url: window.location.origin }
 
 let currentWord = [];
 let guessCount = 0;
 let enterInProgress = false;
 
 let endOfGame = false;
-let stats;
+let stats = [];
 function start() {
     closeS()
-    stats = JSON.parse(localStorage.getItem('stats') ? localStorage.getItem('stats') : '[]');
-    stats[wordNumber - 2] = stats[wordNumber - 2] ? stats[wordNumber - 2] : null;
+    stats = localStorage.getItem('stats') ? JSON.parse(localStorage.getItem('stats')) : [];
+    stats[wordNumber - 1] = stats[wordNumber - 1] ? stats[wordNumber - 1] : null;
     localStorage.setItem('stats', JSON.stringify(stats));
     if (!localStorage.getItem('a') && !localStorage.getItem('history')) {
         localStorage.setItem('a', 'a');
@@ -74,39 +74,42 @@ function enter() {
                     localStorage.setItem('history', JSON.stringify(history));
                     let guessRows = document.getElementsByClassName("guessRow");
                     let letters = guessRows[guessCount].getElementsByClassName("guessLetter");
-                    for (let i in currentWord) {
-                        setTimeout(() => {
-                            let k = [];
-                            for (let j in word) {
-                                if (word[j] == currentWord[i]) {
-                                    k.push(j);
+                    let k = [...currentWord];
+                    let p = [...word]
+                    for (let j = 0; j < p.length; j++) {
+                        if (k[j] == p[j]) {
+                            k[j] = "right";
+                            p[j] = "";
+                        }
+                    }
+                    for (let j = 0; j < p.length; j++) {
+                        let b = true;
+                        for (let i in k) {
+                            if (b) {
+                                if (k[i] == p[j]) {
+                                    k[i] = "hit";
+                                    p[j] = "";
+                                    b = false;
                                 }
                             }
-                            if (k.length > 1) {
-                                let right = true;
-                                for (let j of k) {
-                                    if (currentWord[j] != word[j]) {
-                                        right = false;
-                                    }
-                                }
-                                if (right && word[i] == letters[i].innerText) {
-                                    letters[i].setAttribute('class', "guessLetter right");
-                                } else {
-                                    letters[i].setAttribute('class', "guessLetter hit");
-                                    guessRight = false;
-                                }
-                            } else if (k.length == 1) {
-                                if (k[0] == i) {
-                                    letters[i].setAttribute('class', "guessLetter right");
-                                } else if (k[0]) {
-                                    letters[i].setAttribute('class', "guessLetter hit");
-                                    guessRight = false;
-                                }
-                            } else {
+                        }
+                    }
+                    for (let i in k) {
+                        if (k[i] == 'right') {
+                            setTimeout(() => {
+                                letters[i].setAttribute('class', "guessLetter right");
+                            }, i * 200);
+                        } else if (k[i] == 'hit') {
+                            guessRight = false;
+                            setTimeout(() => {
+                                letters[i].setAttribute('class', "guessLetter hit");
+                            }, i * 200);
+                        } else {
+                            guessRight = false;
+                            setTimeout(() => {
                                 letters[i].setAttribute('class', "guessLetter wrong");
-                                guessRight = false;
-                            }
-                        }, i * 200);
+                            }, i * 200);
+                        }
                     }
                     setTimeout(() => {
                         guessCount += 1;
@@ -116,6 +119,15 @@ function enter() {
                         if (guessRight || guessCount == 6) {
                             endOfGame = true;
                             endScreen();
+                            stats[wordNumber - 1] = (history[history.length - 1].join('') == word.join('')) ? guessCount : 'X';
+                            let hranoush = [
+                                "Հանճարեղ", "Հոյակապ", "Գերազանց", "Փայլուն", "Տպավորիչ", "Օ՜ֆ"
+                            ];
+                            if (stats[wordNumber - 1] == "X") {
+                                alert_("Օրվա բառը։ " + word.join(""), false)
+                            } else {
+                                alert_(hranoush[stats[wordNumber - 1] - 1], false)
+                            }
                         }
                     }, 1500);
                 } else {
@@ -192,45 +204,45 @@ function checkAll() {
         if (letters[0].innerText == '') {
             break;
         }
-        let currentWord_ = [];
+        let k = [];
         for (let i in letters) {
-            currentWord_.push(letters[i].innerText);
+            k.push(letters[i].innerText);
         }
-        for (let i in currentWord_) {
-            setTimeout(() => {
-                let k = [];
-                for (let j in word) {
-                    if (word[j] == currentWord_[i]) {
-                        k.push(j);
+        let p = [...word]
+        for (let j = 0; j < p.length; j++) {
+            if (k[j] == p[j]) {
+                k[j] = "right";
+                p[j] = "";
+            }
+        }
+        for (let j = 0; j < p.length; j++) {
+            let b = true;
+            for (let i in k) {
+                if (b) {
+                    if (k[i] == p[j]) {
+                        k[i] = "hit";
+                        p[j] = "";
+                        b = false;
                     }
                 }
-                if (letters[i]) {
-                    if (k.length > 1) {
-                        let right = true;
-                        for (let j of k) {
-                            if (currentWord_[j] != word[j]) {
-                                right = false;
-                            }
-                        }
-                        if (right && word[i] == letters[i].innerText) {
-                            letters[i].setAttribute('class', "guessLetter right");
-                        } else {
-                            letters[i].setAttribute('class', "guessLetter hit");
-                            guessRight = false;
-                        }
-                    } else if (k.length == 1) {
-                        if (k[0] == i) {
-                            letters[i].setAttribute('class', "guessLetter right");
-                        } else if (k[0]) {
-                            letters[i].setAttribute('class', "guessLetter hit");
-                            guessRight = false;
-                        }
-                    } else {
-                        letters[i].setAttribute('class', "guessLetter wrong");
-                        guessRight = false;
-                    }
-                }
-            }, i * 150 + r * 50);
+            }
+        }
+        for (let i = 0; i < 5; i++) {
+            if (k[i] == 'right') {
+                setTimeout(() => {
+                    document.getElementsByClassName("guessRow")[r].getElementsByClassName("guessLetter")[i].setAttribute('class', "guessLetter right");
+                }, i * 150 + r * 50);
+            } else if (k[i] == 'hit') {
+                guessRight = false;
+                setTimeout(() => {
+                    document.getElementsByClassName("guessRow")[r].getElementsByClassName("guessLetter")[i].setAttribute('class', "guessLetter hit");
+                }, i * 150 + r * 50);
+            } else {
+                guessRight = false;
+                setTimeout(() => {
+                    document.getElementsByClassName("guessRow")[r].getElementsByClassName("guessLetter")[i].setAttribute('class', "guessLetter wrong");
+                }, i * 150 + r * 50);
+            }
         }
         setTimeout(() => {
             keyboard();
@@ -244,9 +256,6 @@ function checkAll() {
 }
 
 function endScreen() {
-    let _share = document.createElement('div');
-    _share.setAttribute('class', 'share');
-    _share.innerHTML = '<span onclick="c()" class="close"></span><p>Այսօրվա բառը։ ' + word.join('') + '</p>';
     let emoji = '';
     let letters = document.getElementsByClassName("guessLetter");
     let count = 0;
@@ -260,20 +269,17 @@ function endScreen() {
             count++;
         }
     }
-    share.text = 'Բառուկ ' + wordNumber + ' ' + (history[history.length - 1].join('') == word.join('')) ? count : 'X' + '/6 \n' + emoji;
-    share.title = 'Բառուկ ' + wordNumber;
-    _share.innerHTML += '';
-    _share.innerHTML += '<button class="shareButton" onclick="copyEmoji()">Կիսվել</button>';
-    _blur = document.getElementsByClassName('blur')[0];
-    _blur.lastChild.remove();
-    _blur.appendChild(_share);
-    _blur.style.display = "block";
+    shareEmoji = {
+        title: '', text: ''
+    }
+    shareEmoji.text = 'Բառուկ ' + wordNumber + ' ' + (history[history.length - 1].join('') == word.join('')) ? count : 'X' + '/6 \n' + emoji;
+    shareEmoji.title = 'Բառուկ ' + wordNumber;
     stats[wordNumber - 1] = (history[history.length - 1].join('') == word.join('')) ? count : 'X';
     localStorage.setItem('stats', JSON.stringify(stats));
+    openS();
 }
 
 function main() {
-    c();
     for (let i = 0; i < _word.length; i++) {
         if (_word[i + 1] == 'Ւ') {
             word.push(_word[i] + _word[i + 1]);
@@ -302,16 +308,12 @@ function main() {
     }
 }
 
-function c() {
-    document.getElementsByClassName("blur")[0].style.display = "none";
-}
-
 function copyEmoji() {
     if (navigator.share) {
-        navigator.share(share).then(() => {
+        navigator.share(shareEmoji).then(() => {
         }).catch(err => {
             var emoji = document.createElement('textarea');
-            emoji.innerText = share.title + '\n' + share.text
+            emoji.innerText = shareEmoji.text
             emoji.focus();
             emoji.select();
             document.appendChild(emoji);
@@ -326,7 +328,7 @@ function copyEmoji() {
         });
     } else {
         var emoji = document.createElement('textarea');
-        emoji.innerText = share.title + '\n' + share.text
+        emoji.innerText = shareEmoji.text
         emoji.focus();
         emoji.select();
         document.appendChild(emoji);
@@ -372,10 +374,26 @@ function showStats() {
     if (ms > mStreak) {
         mStreak = ms;
     }
-    wCount = Math.round(wCount / gCount * 100);
-    console.log(cStreak, mStreak, gCount, wCount);
+    wCount = gCount ? Math.round(wCount / gCount * 100) : 0;
     document.getElementById('wcount').innerText = wCount + '%';
     document.getElementById('gcount').innerText = gCount;
     document.getElementById('cstreak').innerText = cStreak;
     document.getElementById('mstreak').innerText = mStreak;
+    for (let i in wStats) {
+        document.getElementsByClassName('guessC')[i].innerText = wStats[i];
+        document.getElementsByClassName('guessC')[i].style.width = "calc(" + wStats[i] / (max(wStats) ? max(wStats) : 1) * 85 + "% + 10%";
+        if (stats[stats.length - 1] == i - 1 + 2) {
+            document.getElementsByClassName('guessC')[i].className = "guessC today";
+        }
+    }
+}
+
+function max(arr) {
+    let max_ = arr[0]
+    for (let i in arr) {
+        if (arr[i] > max_) {
+            max_ = arr[i]
+        }
+    }
+    return max_;
 }

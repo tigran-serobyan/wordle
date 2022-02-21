@@ -74,6 +74,7 @@ fs.readFile('./swords.txt', function (err, data) {
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
+  date = new Date();
   if (_date != date.getUTCDay()) {
     _date = date.getUTCDay();
     let i = Math.floor(Math.random() * swords.length);
@@ -83,6 +84,14 @@ router.get('/', function (req, res, next) {
     fs.writeFile('./swords.txt', swords.join('\n'), function (err) {
       if (err) {
         console.log(err);
+      } else {
+        fs.readFile('./swords.txt', function (err, data) {
+          console.log(data.toString('utf-8').split('\n'));
+          console.log("\n\n\n")
+          fs.readFile('./repeatingWords.txt', function (err, data) {
+            console.log(data.toString('utf-8').split('\n'))
+          })
+        })
       }
     });
   }
