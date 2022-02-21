@@ -9,8 +9,8 @@ let enterInProgress = false;
 let endOfGame = false;
 
 function start() {
-    if (!getCookie('a') && !getCookie('history')) {
-        setCookie('a', 'a', 365);
+    if (!localStorage.getItem('a') && !localStorage.getItem('history')) {
+        localStorage.setItem('a', 'a');
         openH();
     } else {
         closeH();
@@ -52,7 +52,7 @@ function enter() {
                 if (response.data) {
                     let guessRight = true;
                     history.push(currentWord);
-                    setCookie('history', JSON.stringify(history), 365);
+                    localStorage.setItem('history', JSON.stringify(history));
                     let guessRows = document.getElementsByClassName("guessRow");
                     let letters = guessRows[guessCount].getElementsByClassName("guessLetter");
                     for (let i in currentWord) {
@@ -266,11 +266,11 @@ function main() {
             document.getElementById("doubleLetter").style.display = "block";
         }
     }
-    if (word.join('') != getCookie('word')) {
-        setCookie('word', _word, 365);
-        setCookie('history', '', 365);
+    if (word.join('') != localStorage.getItem('word')) {
+        localStorage.setItem('word', _word);
+        localStorage.setItem('history', '');
     }
-    history = getCookie('history') ? JSON.parse(getCookie('history')) : [];
+    history = localStorage.getItem('history') ? JSON.parse(localStorage.getItem('history')) : [];
     if (history != []) {
         for (let p in history) {
             currentWord = history[p];
@@ -316,29 +316,4 @@ function copyEmoji() {
             alert_('Չստացվեց');
         }
     }
-}
-
-
-
-function getCookie(cname) {
-    let name = cname + "=";
-    let decodedCookie = decodeURIComponent(document.cookie);
-    let ca = decodedCookie.split(';');
-    for (let i = 0; i < ca.length; i++) {
-        let c = ca[i];
-        while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-        }
-    }
-    return "";
-}
-
-function setCookie(cname, cvalue, exdays) {
-    const d = new Date();
-    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-    let expires = "expires=" + d.toUTCString();
-    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
