@@ -10,20 +10,7 @@ router.get('/', function(req, res, next) {
       let nonRepeatingWords = data.toString('utf-8');
       fs.readFile('./words.txt', function (err, data) {
         let words = data.toString('utf-8');
-        res.render('admin', { title: 'wordle', words, nonRepeatingWords, repeatingWords });
-      });
-    });
-  });
-});
-
-router.post('/', function(req, res, next) {
-  fs.readFile('./repeatingWords.txt', function (err, data) {
-    let repeatingWords = data.toString('utf-8');
-    fs.readFile('./nonRepeatingWords.txt', function (err, data) {
-      let nonRepeatingWords = data.toString('utf-8');
-      fs.readFile('./words.txt', function (err, data) {
-        let words = data.toString('utf-8');
-        res.render('admin', { title: 'wordle', words, nonRepeatingWords, repeatingWords });
+        res.render('admin', { title: 'Բառուկ', words, nonRepeatingWords, repeatingWords });
       });
     });
   });
