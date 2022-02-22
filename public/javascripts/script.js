@@ -200,7 +200,7 @@ function checkAll() {
     let guessRows = document.getElementsByClassName("guessRow");
     for (let r in guessRows) {
         let guessRight = true;
-        let letters = guessRows[r].getElementsByClassName("guessLetter");
+        let letters = guessRows[r].children;
         if (letters[0].innerText == '') {
             break;
         }
@@ -304,7 +304,7 @@ function main() {
             show();
             guessCount++;
         }
-        checkAll();
+        setTimeout(() => {checkAll();}, 500);
     }
 }
 
