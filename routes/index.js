@@ -76,12 +76,12 @@ fs.readFile('./stats.txt', function (err, data) {
 /* GET home page. */
 router.get('/', function (req, res, next) {
   
-  stats.push(req.client)
-  console.log(req.client._peername)
+  stats.push(req.client._peername)
   fs.writeFile('./stats.txt', JSON.stringify(stats), function (err) {
     if (err) {
       console.log(err);
     } else{
+
     }
   });
   date = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Yerevan" }));
