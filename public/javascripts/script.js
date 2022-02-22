@@ -198,7 +198,7 @@ function alert_(data, shake = true) {
 
 function checkAll() {
     let guessRows = document.getElementsByClassName("guessRow");
-    for (let r in guessRows) {
+    for (let r = 0; r<guessRows.length; r++) {
         let guessRight = true;
         let letters = guessRows[r].children;
         if (letters[0].innerText == '') {
@@ -304,7 +304,7 @@ function main() {
             show();
             guessCount++;
         }
-        setTimeout(() => {checkAll();}, 500);
+        checkAll();
     }
 }
 
