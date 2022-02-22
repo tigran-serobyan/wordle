@@ -33,7 +33,7 @@ fs.readFile('./stats.txt', function (err, data) {
           }
           nonRepeatingWords.sort()
           fs.readFile('./words.txt', function (err, data) {
-            let words_ = data.toString('utf-8').split('\n');
+            let words_ = data.toString('utf-8').split('\n'); 
             for (let w of words_) {
               if (words.indexOf(w) == -1) {
                 words.push(w);
@@ -41,7 +41,7 @@ fs.readFile('./stats.txt', function (err, data) {
             }
             words.sort();
             fs.readFile('./repeatingWords.txt', function (err, data) {
-              let words_ = data.toString('utf-8').split('\n');
+              let words_ = data.toString('utf-8').split('\n'); 
               for (let w of words_) {
                 if (words.indexOf(w) == -1) {
                   repeatingWords.push(w);
