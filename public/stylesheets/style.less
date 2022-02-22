@@ -140,7 +140,7 @@ main {
   right        : ~"calc(89.6vw / 2 - calc(55vh / 7 -  0.1vh) * 2.5)";
   text-align   : center;
   color        : white;
-  background   : #c0a427;
+  background   : #af8515;
   padding      : 0.8vh 1.4vh 0.7vh 2.8vh;
   border-radius: 2vh;
   width        : max-content;
@@ -209,15 +209,15 @@ main {
   }
 
   50% {
-    background  : #242525;
-    border-color: #242525;
+    background  : #2d2e2e;
+    border-color: #2d2e2e;
     transform   : rotateX(90deg);
   }
 
   100% {
     transform   : rotateX(0deg);
-    background  : #242525;
-    border-color: #242525;
+    background  : #2d2e2e;
+    border-color: #2d2e2e;
   }
 }
 
@@ -234,15 +234,15 @@ main {
   }
 
   50% {
-    background  : #c0a427;
-    border-color: #c0a427;
+    background  : #af8515;
+    border-color: #af8515;
     transform   : rotateX(90deg);
   }
 
   100% {
     transform   : rotateX(0deg);
-    background  : #c0a427;
-    border-color: #c0a427;
+    background  : #af8515;
+    border-color: #af8515;
   }
 }
 
@@ -259,31 +259,31 @@ main {
   }
 
   50% {
-    background  : #4d9947;
-    border-color: #4d9947;
+    background  : #3f813a;
+    border-color: #3f813a;
     transform   : rotateX(90deg);
   }
 
   100% {
     transform   : rotateX(0deg);
-    background  : #4d9947;
-    border-color: #4d9947;
+    background  : #3f813a;
+    border-color: #3f813a;
   }
 }
 
 .wrong {
-  background  : #242525;
-  border-color: #242525;
+  background  : #2d2e2e;
+  border-color: #2d2e2e;
 }
 
 .hit {
-  background  : #c0a427;
-  border-color: #c0a427;
+  background  : #af8515;
+  border-color: #af8515;
 }
 
 .right {
-  background  : #4d9947;
-  border-color: #4d9947;
+  background  : #3f813a;
+  border-color: #3f813a;
 }
 
 .alert {
@@ -323,7 +323,7 @@ main {
 }
 
 button {
-  background   : #4d9947;
+  background   : #3f813a;
   border       : none;
   font-size    : 2vh;
   padding      : 0.7em 1em;
@@ -455,11 +455,11 @@ textarea:nth-child(2) {
   transform    : translate(-50%, -50%);
   width        : ~"min(93vw, 45vh)";
   padding      : 1.5vw 2.5vw;
-  background   : #111;
+  background   : #060606;
   border       : solid 2px #333;
   border-radius: 5px;
   color        : #fff;
-  font-size    : 1.7vh;
+  font-size    : 1.6vh;
   animation    : slideUp 0.3s linear;
 }
 
@@ -480,6 +480,7 @@ textarea:nth-child(2) {
 
 h3 {
   font-size: 2.7vh;
+  margin: 0.8em 0;
 }
 
 h3:nth-child(2) {
@@ -487,11 +488,15 @@ h3:nth-child(2) {
 }
 
 #intro p:nth-last-child(1) {
-  font-size: 1.8vh;
+  font-size: 1.7vh;
 }
 
 #intro b {
-  font-size: 1.9vh;
+  font-size: 1.8vh;
+}
+
+#intro p {
+  margin: 0.8em 0;
 }
 
 #start,
@@ -552,36 +557,6 @@ h3:nth-child(2) {
     border-color: #3f4141;
   }
 
-  50% {
-    background  : #121213;
-    border-color: #3f4141;
-    transform   : rotateX(0deg);
-  }
-
-  73% {
-    background  : #121213;
-    border-color: #3f4141;
-  }
-
-  75% {
-    background  : #242525;
-    border-color: #242525;
-    transform   : rotateX(90deg);
-  }
-
-  100% {
-    transform   : rotateX(0deg);
-    background  : #242525;
-    border-color: #242525;
-  }
-}
-
-@keyframes iflipHit {
-  0% {
-    background  : #121213;
-    border-color: #3f4141;
-  }
-
   40% {
     background  : #121213;
     border-color: #3f4141;
@@ -594,15 +569,45 @@ h3:nth-child(2) {
   }
 
   70% {
-    background  : #c0a427;
-    border-color: #c0a427;
+    background  : #2d2e2e;
+    border-color: #2d2e2e;
     transform   : rotateX(90deg);
   }
 
   100% {
     transform   : rotateX(0deg);
-    background  : #c0a427;
-    border-color: #c0a427;
+    background  : #2d2e2e;
+    border-color: #2d2e2e;
+  }
+}
+
+@keyframes iflipHit {
+  0% {
+    background  : #121213;
+    border-color: #3f4141;
+  }
+
+  45% {
+    background  : #121213;
+    border-color: #3f4141;
+    transform   : rotateX(0deg);
+  }
+
+  72% {
+    background  : #121213;
+    border-color: #3f4141;
+  }
+
+  75% {
+    background  : #af8515;
+    border-color: #af8515;
+    transform   : rotateX(90deg);
+  }
+
+  100% {
+    transform   : rotateX(0deg);
+    background  : #af8515;
+    border-color: #af8515;
   }
 }
 
@@ -624,15 +629,15 @@ h3:nth-child(2) {
   }
 
   72% {
-    background  : #4d9947;
-    border-color: #4d9947;
+    background  : #3f813a;
+    border-color: #3f813a;
     transform   : rotateX(90deg);
   }
 
   100% {
     transform   : rotateX(0deg);
-    background  : #4d9947;
-    border-color: #4d9947;
+    background  : #3f813a;
+    border-color: #3f813a;
   }
 }
 
@@ -678,7 +683,7 @@ h3:nth-child(2) {
 }
 
 .guessC.today {
-  background: #4d9947;
+  background: #3f813a;
 }
 
 .guessC::after {
@@ -717,10 +722,10 @@ h3:nth-child(2) {
   position     : relative;
   text-align   : center;
   color        : white;
-  background   : #c0a427;
+  background   : #af8515;
   padding      : 0.8vh 1.4vh 0.7vh 2.8vh;
   border-radius: 2vh;
   width        : max-content;
   font-size    : 1.2vh;
-  margin       : 1vh;
+  margin       : 1vh 0 -2vh !important;
 }

@@ -5,10 +5,10 @@ var words = [];
 var repeatingWords = [];
 var nonRepeatingWords = [];
 var swords = [];
-var date = new Date();
-var _date = date.getUTCDay();
+var date = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Yerevan" }));
+var _date = date.getDay();
 var wordOfTheDay = '';
-var wordNumber = 0;
+var wordNumber = Math.floor((date - new Date("Mon Feb 21 2022 00:00:00 GMT+0400")) / 86400000);
 
 fs.readFile('./swords.txt', function (err, data) {
   let swords_ = data.toString('utf-8').split('\n');
@@ -74,9 +74,9 @@ fs.readFile('./swords.txt', function (err, data) {
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  date = new Date();
-  if (_date != date.getUTCDay()) {
-    _date = date.getUTCDay();
+  date = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Yerevan" }));
+  if (_date != date.getDay()) {
+    _date = date.getDay();
     let i = Math.floor(Math.random() * swords.length);
     wordOfTheDay = swords[i].toUpperCase();
     swords.splice(i, 1);
