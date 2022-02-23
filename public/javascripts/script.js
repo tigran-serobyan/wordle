@@ -1,6 +1,6 @@
 let word = [];
 let history;
-let shareEmoji = { title: 'Բառուկ', text: 'բառուկ.հայ\nԱմենօրյա բառախաղ', url: window.location.origin }
+let shareEmoji = { title: 'Բառուկ', text: 'բառուկ.հայ\n', url: window.location.origin }
 
 let currentWord = [];
 let guessCount = 0;
@@ -283,6 +283,7 @@ function endScreen() {
 }
 
 function main() {
+    timer();
     for (let i = 0; i < _word.length; i++) {
         if (_word[i + 1] == 'Ւ') {
             word.push(_word[i] + _word[i + 1]);
@@ -399,4 +400,15 @@ function max(arr) {
         }
     }
     return max_;
+}
+
+function timer() {
+    let d = new Date(((new Date()).toLocaleString("en-US", { timeZone: "Asia/Yerevan" })));
+    let hour = ((d.getHours() > 13) ? "0" : "") + (23 - d.getHours());
+    let minute = ((d.getMinutes() > 49) ? "0" : "") + (59 - d.getMinutes());
+    let seconds = ((d.getSeconds() > 49) ? "0" : "") + (59 - d.getSeconds());
+    document.getElementById("time").innerText = hour + ":" + minute + ":" + seconds + "-ից"
+    setTimeout(() => {
+        timer();
+    }, 500);
 }
