@@ -39,6 +39,7 @@ fs.readFile('./stats.txt', function (err, data) {
                 words.push(w);
               }
             }
+            console.log(words.length); 
             words.sort();
             fs.readFile('./repeatingWords.txt', function (err, data) {
               let words_ = JSON.parse(data.toString('utf-8'));
@@ -48,22 +49,32 @@ fs.readFile('./stats.txt', function (err, data) {
                 }
               }
               repeatingWords.sort();
-              fs.writeFile('./repeatingWords.txt', JSON.stringify(repeatingWords), function (err) {
-                if (err) {
-                  console.log(err);
-                } else {
-                  fs.writeFile('./words.txt', JSON.stringify(words), function (err) {
-                    if (err) {
-                      console.log(err);
-                    } else {
-                      fs.writeFile('./nonRepeatingWords.txt', JSON.stringify(nonRepeatingWords), function (err) {
-                        if (err) {
-                          console.log(err);
-                        }
-                      });
-                    }
-                  });
-                }
+              fs.readFile('./words_.txt', function (err, data) {
+                let words_ = JSON.parse(data.toString('utf-8'));
+                console.log(words_.length);
+                fs.writeFile('./words_.txt', JSON.stringify(words_), function (err) {
+                  if (err) {
+                    console.log(err);
+                  } else {
+                    fs.writeFile('./repeatingWords.txt', JSON.stringify(repeatingWords), function (err) {
+                      if (err) {
+                        console.log(err);
+                      } else {
+                        fs.writeFile('./words.txt', JSON.stringify(words), function (err) {
+                          if (err) {
+                            console.log(err);
+                          } else {
+                            fs.writeFile('./nonRepeatingWords.txt', JSON.stringify(nonRepeatingWords), function (err) {
+                              if (err) {
+                                console.log(err);
+                              }
+                            });
+                          }
+                        });
+                      }
+                    });
+                  }
+                });
               });
             });
           });
