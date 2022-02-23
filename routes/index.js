@@ -39,7 +39,6 @@ fs.readFile('./stats.txt', function (err, data) {
                 words.push(w);
               }
             }
-            console.log(words.length); 
             words.sort();
             fs.readFile('./repeatingWords.txt', function (err, data) {
               let words_ = JSON.parse(data.toString('utf-8'));
@@ -49,32 +48,22 @@ fs.readFile('./stats.txt', function (err, data) {
                 }
               }
               repeatingWords.sort();
-              fs.readFile('./words_.txt', function (err, data) {
-                let words_ = JSON.parse(data.toString('utf-8'));
-                console.log(words_.length);
-                fs.writeFile('./words_.txt', JSON.stringify(words_), function (err) {
-                  if (err) {
-                    console.log(err);
-                  } else {
-                    fs.writeFile('./repeatingWords.txt', JSON.stringify(repeatingWords), function (err) {
-                      if (err) {
-                        console.log(err);
-                      } else {
-                        fs.writeFile('./words.txt', JSON.stringify(words), function (err) {
-                          if (err) {
-                            console.log(err);
-                          } else {
-                            fs.writeFile('./nonRepeatingWords.txt', JSON.stringify(nonRepeatingWords), function (err) {
-                              if (err) {
-                                console.log(err);
-                              }
-                            });
-                          }
-                        });
-                      }
-                    });
-                  }
-                });
+              fs.writeFile('./repeatingWords.txt', JSON.stringify(repeatingWords), function (err) {
+                if (err) {
+                  console.log(err);
+                } else {
+                  fs.writeFile('./words.txt', JSON.stringify(words), function (err) {
+                    if (err) {
+                      console.log(err);
+                    } else {
+                      fs.writeFile('./nonRepeatingWords.txt', JSON.stringify(nonRepeatingWords), function (err) {
+                        if (err) {
+                          console.log(err);
+                        }
+                      });
+                    }
+                  });
+                }
               });
             });
           });
@@ -86,12 +75,6 @@ fs.readFile('./stats.txt', function (err, data) {
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  stats.push({ p: req.client._peername, h: req.headers })
-  fs.writeFile('./stats.txt', JSON.stringify(stats), function (err) {
-    if (err) {
-      console.log(err);
-    }
-  });
   date = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Yerevan" }));
   if (_date != date.getDay()) {
     _date = date.getDay();
@@ -101,6 +84,21 @@ router.get('/', function (req, res, next) {
   res.render('index', { title: 'Բառուկ | Արևելահայերեն', word: wordOfTheDay, wordNumber });
 });
 
+router.get('/stats', function (req, res, next) {
+  res.send(stats);
+});
+
+router.post('/win', function (req, res, next) {
+  date = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Yerevan" }));
+  stats.push({ device: req.headers["user-agent"], history: req.body.history, word: req.body.word, date })
+  fs.writeFile('./stats.txt', JSON.stringify(stats), function (err) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send('stats');
+    }
+  });
+});
 router.get('/checkWord/:word', function (req, res, next) {
   if (words.indexOf(req.params.word.toLowerCase()) == -1) {
     res.send(false);

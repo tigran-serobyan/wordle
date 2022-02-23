@@ -128,6 +128,9 @@ function enter() {
                             } else {
                                 alert_(hranoush[stats[wordNumber - 1] - 1], false)
                             }
+                            axios.post('/win/', { history, word: word.join('') }).then(function (res) {
+                                console.log(res);
+                            })
                         }
                     }, 1500);
                 } else {
@@ -198,7 +201,7 @@ function alert_(data, shake = true) {
 
 function checkAll() {
     let guessRows = document.getElementsByClassName("guessRow");
-    for (let r = 0; r<guessRows.length; r++) {
+    for (let r = 0; r < guessRows.length; r++) {
         let guessRight = true;
         let letters = guessRows[r].children;
         if (letters[0].innerText == '') {
