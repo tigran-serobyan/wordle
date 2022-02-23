@@ -8,6 +8,7 @@ var swords = [];
 var stats = [];
 var date = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Yerevan" }));
 var _date = date.getDay();
+console.log(date);
 var wordOfTheDay = '';
 var wordNumber = Math.floor((date - new Date("Mon Feb 21 2022 00:00:00 GMT+0400")) / 86400000);
 
