@@ -76,12 +76,8 @@ fs.readFile('./stats.txt', function (err, data) {
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  date = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Yerevan" }));
-  if (_date != date.getDay()) {
-    _date = date.getDay();
-    wordOfTheDay = swords[wordNumber].toUpperCase();
-    wordNumber += 1;
-  }
+  wordNumber = Math.floor((date - new Date("Mon Feb 21 2022 00:00:00 GMT+0400")) / 86400000)
+  wordOfTheDay = swords[wordNumber].toUpperCase();
   res.render('index', { title: 'Բառուկ | Արևելահայերեն', word: wordOfTheDay, wordNumber });
 });
 
