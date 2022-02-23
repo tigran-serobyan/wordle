@@ -6,11 +6,8 @@ var repeatingWords = [];
 var nonRepeatingWords = [];
 var swords = [];
 var stats = [];
-var date = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Yerevan" }));
-var _date = date.getDay();
-console.log(date);
 var wordOfTheDay = '';
-var wordNumber = Math.floor((date - new Date("Mon Feb 21 2022 00:00:00 GMT+0400")) / 86400000);
+var wordNumber = Math.floor((Date.parse((new Date()).toLocaleString("en-US", { timeZone: "Asia/Yerevan" })) - Date.parse("Feb 20 2022 00:00:00 GMT+0400")) / 86400000);
 
 fs.readFile('./stats.txt', function (err, data) {
   stats = JSON.parse(data.toString('utf-8'));
@@ -76,7 +73,7 @@ fs.readFile('./stats.txt', function (err, data) {
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  wordNumber = Math.floor((date - new Date("Mon Feb 21 2022 00:00:00 GMT+0400")) / 86400000)
+  wordNumber = wordNumber = Math.floor((Date.parse((new Date()).toLocaleString("en-US", { timeZone: "Asia/Yerevan" })) - Date.parse("Feb 21 2022 00:00:00 GMT+0400")) / 86400000);
   wordOfTheDay = swords[wordNumber].toUpperCase();
   res.render('index', { title: 'Բառուկ | Արևելահայերեն', word: wordOfTheDay, wordNumber });
 });

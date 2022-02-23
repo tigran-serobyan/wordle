@@ -129,7 +129,7 @@ function enter() {
                                 alert_(hranoush[stats[wordNumber - 1] - 1], false)
                             }
                             axios.post('/win/', { history, word: word.join('') }).then(function (res) {
-                                console.log(res);
+                                // console.log(res);
                             })
                         }
                     }, 1500);
@@ -385,7 +385,7 @@ function showStats() {
     for (let i in wStats) {
         document.getElementsByClassName('guessC')[i].innerText = wStats[i];
         document.getElementsByClassName('guessC')[i].style.width = "calc(" + wStats[i] / (max(wStats) ? max(wStats) : 1) * 85 + "% + 10%";
-        if (stats[stats.length - 1] == i - 1 + 2) {
+        if (history.length == i - 0 + 1) {
             document.getElementsByClassName('guessC')[i].className = "guessC today";
         }
     }
