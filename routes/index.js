@@ -8,7 +8,7 @@ var swords = [];
 var stats = [];
 var wordOfTheDay = '';
 var wordNumber = Math.floor((Date.parse((new Date()).toLocaleString("en-US", { timeZone: "Asia/Yerevan" })) - Date.parse("Feb 20 2022 00:00:00 GMT+0400")) / 86400000);
-
+console.log((Date.parse((new Date()).toLocaleString("en-US", { timeZone: "Asia/Yerevan" })) - Date.parse("Feb 20 2022 00:00:00 GMT+0400")) / 86400000);
 fs.readFile('./stats.txt', function (err, data) {
   stats = JSON.parse(data.toString('utf-8'));
   fs.readFile('./swords.txt', function (err, data) {

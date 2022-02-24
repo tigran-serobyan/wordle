@@ -275,7 +275,7 @@ function endScreen() {
     shareEmoji = {
         title: '', text: ''
     }
-    shareEmoji.text = 'Բառուկ ' + wordNumber + ' ' + ((history[history.length - 1].join('') == word.join('')) ? count : 'X') + '/6 \n' + emoji;
+    shareEmoji.text = 'Բառուկ ' + wordNumber + ' ' + ((history[history.length - 1].join('') == word.join('')) ? count : 'X') + '/6 \n' + emoji.slice(0, -1);
     shareEmoji.title = 'Բառուկ ' + wordNumber;
     stats[wordNumber - 1] = (history[history.length - 1].join('') == word.join('')) ? count : 'X';
     localStorage.setItem('stats', JSON.stringify(stats));
@@ -386,8 +386,10 @@ function showStats() {
     for (let i in wStats) {
         document.getElementsByClassName('guessC')[i].innerText = wStats[i];
         document.getElementsByClassName('guessC')[i].style.width = "calc(" + wStats[i] / (max(wStats) ? max(wStats) : 1) * 85 + "% + 10%";
-        if (history.length == i - 0 + 1) {
+        if (history.length == i - 0 + 1 && stats[wordNumber - 1] != null) {
             document.getElementsByClassName('guessC')[i].className = "guessC today";
+        } else {
+            document.getElementsByClassName('guessC')[i].className = "guessC";
         }
     }
 }
@@ -408,7 +410,9 @@ function timer() {
     let minute = ((d.getMinutes() > 49) ? "0" : "") + (59 - d.getMinutes());
     let seconds = ((d.getSeconds() > 49) ? "0" : "") + (59 - d.getSeconds());
     document.getElementById("time").innerText = hour + ":" + minute + ":" + seconds + "-ից"
-    setTimeout(() => {
-        timer();
-    }, 500);
+    if (hour != "00" || minute != "00" || seconds != "00") {
+        setTimeout(() => {
+            timer();
+        }, 500);
+    }
 }
