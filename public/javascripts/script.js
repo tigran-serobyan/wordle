@@ -386,7 +386,7 @@ function showStats() {
     for (let i in wStats) {
         document.getElementsByClassName('guessC')[i].innerText = wStats[i];
         document.getElementsByClassName('guessC')[i].style.width = "calc(" + wStats[i] / (max(wStats) ? max(wStats) : 1) * 85 + "% + 10%";
-        if (history.length == i - 0 + 1 && stats[wordNumber - 1] != null) {
+        if (history.length == i - 0 + 1 && stats[wordNumber - 1] != null && stats[wordNumber - 1] != "X") {
             document.getElementsByClassName('guessC')[i].className = "guessC today";
         } else {
             document.getElementsByClassName('guessC')[i].className = "guessC";
