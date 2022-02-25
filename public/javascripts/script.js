@@ -283,6 +283,11 @@ function endScreen() {
 }
 
 function main() {
+    const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
+    darkThemeMq.onchange = function (e) {
+        style(e.matches ? "dark" : "light")
+    }
+    style(darkThemeMq.matches ? "dark" : "light")
     timer();
     for (let i = 0; i < _word.length; i++) {
         if (_word[i + 1] == 'Ւ') {
@@ -414,5 +419,17 @@ function timer() {
         setTimeout(() => {
             timer();
         }, 500);
+    }
+}
+
+function style(color = "") {
+    if (color) {
+        document.getElementById("style").href = "/stylesheets/" + color + ".css";
+    } else {
+        if (document.getElementById("style").href.split("/")[document.getElementById("style").href.split("/").length - 1] == "light.css") {
+            document.getElementById("style").href = "/stylesheets/dark.css";
+        } else {
+            document.getElementById("style").href = "/stylesheets/light.css";
+        }
     }
 }

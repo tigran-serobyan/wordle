@@ -3,8 +3,10 @@
 	<head>
 		<title>{{ title }}</title>
 		<link rel='stylesheet' href='/stylesheets/style.css'/>
+		<link rel='stylesheet' href='/stylesheets/dark.css' id="style"/>
+		{# <link rel='stylesheet' href='/stylesheets/light.css'/> #}
 		<link rel='icon' href='/stylesheets/images/logo.png'/>
-                <link rel='apple-touch-icon' href='/stylesheets/images/logo.png'/>
+		<link rel='apple-touch-icon' href='/stylesheets/images/logo.png'/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -86,7 +88,10 @@
 					<span class="guessC"></span>
 					<span class="guessC"></span>
 				</div>
-				<div class="timer"><span>Հաջորդ բառուկը՝</span><span id="time">00:00:00-ից</span></div>
+				<div class="timer">
+					<span>Հաջորդ բառուկը՝</span>
+					<span id="time">00:00:00-ից</span>
+				</div>
 				<button class="shareButton" onclick="copyEmoji()">Կիսվել</button>
 			</div>
 		</div>
