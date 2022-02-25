@@ -262,7 +262,7 @@ function endScreen() {
     let emoji = '';
     let letters = document.getElementsByClassName("guessLetter");
     let count = 0;
-    let blank = e.matches ? '⬛' : '⬜'
+    let blank = darkThemeMq.matches ? '⬛' : '⬜'
     for (let l in letters) {
         if (letters[l].className == 'guessLetter' || letters[l].className == undefined || l > 29) {
             break;
