@@ -77,7 +77,7 @@ router.get('/', function (req, res, next) {
   res.render('index', { title: 'Բառուկ | Արևելահայերեն', word: wordOfTheDay, wordNumber });
 });
 
-router.get('/stats', function (req, res, next) {
+router.get('/vardanoosh', function (req, res, next) {
   res.send(stats);
 });
 
