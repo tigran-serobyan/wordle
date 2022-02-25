@@ -262,11 +262,12 @@ function endScreen() {
     let emoji = '';
     let letters = document.getElementsByClassName("guessLetter");
     let count = 0;
+    let blank = e.matches ? '⬛' : '⬜'
     for (let l in letters) {
         if (letters[l].className == 'guessLetter' || letters[l].className == undefined || l > 29) {
             break;
         }
-        emoji += letters[l].className == 'guessLetter wrong' ? '⬛' : letters[l].className == 'guessLetter hit' ? '🟨' : '🟩';
+        emoji += letters[l].className == 'guessLetter wrong' ? blank : letters[l].className == 'guessLetter hit' ? '🟨' : '🟩';
         if (l % 5 == 4) {
             emoji += '\n';
             count++;
@@ -282,8 +283,8 @@ function endScreen() {
     openS();
 }
 
+let darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
 function main() {
-    const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
     darkThemeMq.onchange = function (e) {
         style(e.matches ? "dark" : "light")
     }
