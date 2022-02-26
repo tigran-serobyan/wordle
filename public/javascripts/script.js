@@ -443,7 +443,7 @@ function timer() {
 }
 
 function style(color = "") {
-    if (stats[stats.length - 1]) {
+    if (!shareEmoji.url) {
         setEmoji()
     }
     if (color) {
