@@ -274,7 +274,7 @@ function checkAll() {
 }
 
 function endScreen() {
-    setEmoji()
+    count = setEmoji()
     stats[wordNumber - 1] = (history[history.length - 1].join('') == word.join('')) ? count : 'X';
     localStorage.setItem('stats', JSON.stringify(stats));
     openS();
@@ -300,6 +300,7 @@ function setEmoji() {
     }
     shareEmoji.text = 'Բառուկ ' + wordNumber + ' ' + ((history[history.length - 1].join('') == word.join('')) ? count : 'X') + '/6 \n' + emoji.slice(0, -1);
     shareEmoji.title = 'Բառուկ ' + wordNumber;
+    return count;
 }
 
 let darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
