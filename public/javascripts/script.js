@@ -443,7 +443,9 @@ function timer() {
 }
 
 function style(color = "") {
-    setEmoji()
+    if (stats[stats.length - 1]) {
+        setEmoji()
+    }
     if (color) {
         document.getElementById("style").href = "/stylesheets/" + color + ".css";
     } else {
