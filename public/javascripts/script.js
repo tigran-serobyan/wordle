@@ -124,7 +124,7 @@ function enter() {
                                 "Հանճարեղ", "Հոյակապ", "Գերազանց", "Փայլուն", "Տպավորիչ", "Օ՜ֆ"
                             ];
                             if (stats[wordNumber - 1] == "X") {
-                                alert_("Օրվա բառը։ " + word.join(""), false)
+                                alert_("Օրվա բառը։ " + word.join(""), false, 3000)
                             } else {
                                 alert_(hranoush[stats[wordNumber - 1] - 1], false)
                             }
@@ -135,10 +135,15 @@ function enter() {
                     }, 1500);
                 } else {
                     enterInProgress = false;
-                    alert_('Բառերի ցանկում այս բառը չկա');
+                    alert_("Բառերի ցանկում այս բառը չկա");
                 }
             });
-        } else {
+        } else if (currentWord.length == 0) {
+            alert_("Մուտքագրեք բառ")
+            enterInProgress = false;
+        }
+        else {
+            alert_("Բառը կարճ է")
             enterInProgress = false;
         }
     }
@@ -181,31 +186,38 @@ function keyboard() {
     }
 }
 
-function alert_(data, shake = true) {
-    let alert = document.createElement('p');
-    alert.setAttribute('class', 'alert');
-    if (shake) {
-        document.getElementsByClassName('guessRow')[guessCount].setAttribute('class', 'guessRow shake');
-    }
-    alert.innerText = data;
-    document.getElementsByTagName('main')[0].appendChild(alert);
-    setTimeout(() => {
-        alert.remove();
-    }, 1000);
-    if (shake) {
+function alert_(data, shake = true, time = 'auto') {
+    if (document.getElementById('alert').childElementCount < 3) {
+        let alert = document.createElement('p');
+        alert.setAttribute('class', 'alert fadeIn');
+        if (shake) {
+            document.getElementsByClassName('guessRow')[guessCount].setAttribute('class', 'guessRow shake');
+        }
+        alert.innerText = data;
+        document.getElementById('alert').appendChild(alert);
         setTimeout(() => {
-            document.getElementsByClassName('guessRow')[guessCount].setAttribute('class', 'guessRow');
-        }, 500);
+            alert.setAttribute('class', 'alert fadeOut');
+        }, time == 'auto' ? data.split(" ").length * 300 : time);
+        setTimeout(() => {
+            alert.remove();
+        }, (time == 'auto' ? data.split(" ").length * 300 : time) + 145);
+        if (shake) {
+            setTimeout(() => {
+                document.getElementsByClassName('guessRow')[guessCount].setAttribute('class', 'guessRow');
+            }, 500);
+        }
     }
 }
 
 function checkAll() {
     let guessRows = document.getElementsByClassName("guessRow");
+    let guessRight = false;
     for (let r = 0; r < guessRows.length; r++) {
-        let guessRight = true;
         let letters = guessRows[r].children;
         if (letters[0].innerText == '') {
             break;
+        } else {
+            guessRight = true;
         }
         let k = [];
         for (let i in letters) {
@@ -247,18 +259,28 @@ function checkAll() {
                 }, i * 150 + r * 50);
             }
         }
-        setTimeout(() => {
-            keyboard();
-            if (guessRight || guessCount >= 6) {
-                endOfGame = true;
-                endScreen();
-            }
-        }, 1500);
     }
+    setTimeout(() => {
+        keyboard();
+        if (guessRight || guessCount >= 6) {
+            endOfGame = true;
+            if (stats[wordNumber - 1] == "X") {
+                alert_("Օրվա բառը։ " + word.join(""), false, 3000)
+            }
+            endScreen();
+        }
+    }, 1500);
     currentWord = [];
 }
 
 function endScreen() {
+    setEmoji()
+    stats[wordNumber - 1] = (history[history.length - 1].join('') == word.join('')) ? count : 'X';
+    localStorage.setItem('stats', JSON.stringify(stats));
+    openS();
+}
+
+function setEmoji() {
     let emoji = '';
     let letters = document.getElementsByClassName("guessLetter");
     let count = 0;
@@ -278,9 +300,6 @@ function endScreen() {
     }
     shareEmoji.text = 'Բառուկ ' + wordNumber + ' ' + ((history[history.length - 1].join('') == word.join('')) ? count : 'X') + '/6 \n' + emoji.slice(0, -1);
     shareEmoji.title = 'Բառուկ ' + wordNumber;
-    stats[wordNumber - 1] = (history[history.length - 1].join('') == word.join('')) ? count : 'X';
-    localStorage.setItem('stats', JSON.stringify(stats));
-    openS();
 }
 
 let darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
@@ -424,6 +443,7 @@ function timer() {
 }
 
 function style(color = "") {
+    setEmoji()
     if (color) {
         document.getElementById("style").href = "/stylesheets/" + color + ".css";
     } else {
@@ -432,5 +452,21 @@ function style(color = "") {
         } else {
             document.getElementById("style").href = "/stylesheets/light.css";
         }
+    }
+}
+
+letterObj = { "KeyA": "Ա", "KeyB": "Բ", "KeyG": "Գ", "KeyD": "Դ", "KeyE": "Ե", "KeyZ": "Զ", "Digit1": "Է", "KeyY": "Ը", "Digit2": "Թ", "Equal": "Ժ", "KeyI": "Ի", "KeyL": "Լ", "BracketLeft": "Խ", "BracketRight": "Ծ", "KeyK": "Կ", "KeyH": "Հ", "Digit4": "Ձ", "KeyX": "Ղ", "Digit0": "Ճ", "KeyM": "Մ", "KeyJ": "Յ", "KeyN": "Ն", "Backslash": "Շ", "KeyW": "Ո", "Digit9": "Չ", "KeyP": "Պ", "Digit5": "Ջ", "KeyR": "Ռ", "KeyS": "Ս", "KeyV": "Վ", "KeyT": "Տ", "Digit8": "Ր", "KeyC": "Ց", "KeyU": "ՈՒ", "Digit3": "Փ", "KeyQ": "Ք", "Digit7": "ԵՒ", "KeyF": "Ֆ", "KeyO": "Օ" }
+
+document.addEventListener('keydown', logKey);
+
+function logKey(e) {
+    if (e.code == "Enter") {
+        enter();
+    }
+    if (e.code == "Backspace") {
+        backspace();
+    }
+    if (letterObj[e.code]) {
+        letter(letterObj[e.code]);
     }
 }

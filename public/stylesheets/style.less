@@ -286,40 +286,64 @@ main {
   border-color: #3f813a;
 }
 
+#alert {
+  position      : fixed;
+  top           : 7%;
+  left          : 50%;
+  transform     : translate(-50%, 0%);
+  display       : flex;
+  flex-direction: column;
+  flex-wrap     : nowrap;
+  align-items   : center;
+  max-height    : 25vh;
+  overflow      : hidden;
+}
+
 .alert {
   background             : rgba(0, 0, 0, 0.6);
   backdrop-filter        : blur(4px);
   -webkit-backdrop-filter: blur(4px);
-  padding                : 20px;
+  padding                : 0.8em 1em;
   max-width              : 80vw;
   width                  : max-content;
-  position               : absolute;
-  top                    : 15vh;
   text-align             : center;
-  left                   : 50%;
-  transform              : translate(-50%);
   color                  : white;
-  border-radius          : 20px;
-  font-size              : 24px;
-  animation              : alert 1s linear;
+  border-radius          : 1em;
+  font-size              : 2.4vh;
   z-index                : 15;
+  margin                 : 0.4em;
 }
 
-.share {
-  background   : #111;
-  border       : solid 1px #222;
-  padding      : 20px;
-  width        : 85vw;
-  position     : absolute;
-  top          : 50%;
-  text-align   : center;
-  left         : 50%;
-  transform    : translate(-50%, -50%);
-  color        : white;
-  border-radius: 2vh;
-  font-size    : 2.5vh;
-  animation    : slideUp 0.3s linear;
-  z-index      : 10;
+.fadeIn {
+  animation: fadeIn 150ms linear;
+}
+
+.fadeOut {
+  animation: fadeOut 150ms linear;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity  : 0;
+    font-size: 1vh;
+  }
+
+  100% {
+    opacity  : 1;
+    font-size: 2.4vh;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity  : 1;
+    font-size: 2.4vh;
+  }
+
+  100% {
+    opacity  : 0;
+    font-size: 0.5vh;
+  }
 }
 
 button {
@@ -362,24 +386,6 @@ button {
 .emoji {
   line-height   : 1.1;
   letter-spacing: 2px;
-}
-
-@keyframes alert {
-  0% {
-    opacity: 0;
-  }
-
-  10% {
-    opacity: 1;
-  }
-
-  90% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
-  }
 }
 
 @keyframes slideUp {
