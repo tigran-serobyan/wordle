@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="hy">
 	<head>
 		<meta name="description" content="Բառուկը օրական բառախաղ է։ Գուշակիր այսօրվա ԲԱՌՈՒԿԸ վեց փորձից։ Յուրաքանչյուր փորձը պետք է լինի հինգ տառանոց վավեր բառ։ (wordle խաղի հայերեն տարբերակը)">
 		<meta name="keywords" content="բառուկ, հայ, օրվա, օրական, wordle, խաղ, հայերեն, բառախաղ">
@@ -9,13 +9,14 @@
 		<meta charset="utf-8">
 		<title>{{ title }}</title>
 		<link rel='stylesheet' href='/stylesheets/style.css'/>
+		<link rel='preload' href='dark.css' as='style'>
+		<link rel='preload' href='light.css' as='style'>
 		<link rel='stylesheet' href='/stylesheets/dark.css' id="style"/>
-		{# <link rel='stylesheet' href='/stylesheets/light.css'/> #}
 		<link rel='icon' href='/stylesheets/images/logo.png'/>
 		<link rel='apple-touch-icon' href='/stylesheets/images/logo.png'/>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+		<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+		<meta name='apple-mobile-web-app-status-bar-style' content='black-translucent'>
+		<script src='https://unpkg.com/axios/dist/axios.min.js'></script>
 	</head>
 	<body>
 		{% block body %}{% endblock %}
