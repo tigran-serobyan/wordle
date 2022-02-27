@@ -6,109 +6,20 @@
 		<meta name="robots" content="index, follow">
 		<meta name="author" content="Tigran Serobyan, Areg Serobyan">
 		<link rel="canonical" href="https://xn--y9ab4b9at1b.xn--y9a3aq/"/>
+		<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+		<meta name='apple-mobile-web-app-status-bar-style' content='black-translucent'>
 		<meta charset="utf-8">
 		<title>{{ title }}</title>
 		<link rel='stylesheet' href='/stylesheets/style.css'/>
 		<link rel='preload' href='/stylesheets/dark.css' as='style'>
 		<link rel='preload' href='/stylesheets/light.css' as='style'>
 		<link rel='stylesheet' href='/stylesheets/dark.css' id="style"/>
-		<link rel='icon' href='/stylesheets/images/logo.png'/>
-		<link rel='apple-touch-icon' href='/stylesheets/images/logo.png'/>
-		<meta name='viewport' content='width=device-width, initial-scale=1.0'>
-		<meta name='apple-mobile-web-app-status-bar-style' content='black-translucent'>
+		<link rel='stylesheet' href='/stylesheets/greenYellow.css' id="colorMode"/>
+		<link rel='icon' href='/stylesheets/images/logo.png' id="icon"/>
+		<link rel='apple-touch-icon' href='/stylesheets/images/logo.png' id="appleIcon"/>
 		<script src='https://unpkg.com/axios/dist/axios.min.js'></script>
 	</head>
 	<body>
 		{% block body %}{% endblock %}
-		<div id="start">
-			<div id="intro">
-				<span class="close" onclick="closeH()"></span>
-				<h3>Խաղի կանոնները</h3>
-				<p>
-					Գուշակիր օրվա
-					<b>ԲԱՌՈՒԿԸ</b>
-					վեց փորձից։
-				</p>
-				<p>
-					Յուրաքանչյուր փորձը պետք է լինի հինգ տառանոց վավեր բառ։ Սեղմի՛ր
-					<b>ՄՈՒՏՔ</b>
-					կոճակին հաստատելու համար։
-				</p>
-				<p class="b">
-					Հաստատելուց հետո, տուփերի գույները կփոխվեն, ցույց տալով, թե քո կռահումն ինչքանով է մոտ օրվա
-					<b>ԲԱՌՈՒԿԻՆ</b>
-				</p>
-				<h3>Օրինակ</h3>
-				<span class="guessLetter right">Գ</span>
-				<span class="guessLetter">Ի</span>
-				<span class="guessLetter">Տ</span>
-				<span class="guessLetter">ՈՒ</span>
-				<span class="guessLetter">Ն</span>
-				<p>Գ տառը բառի մեջ է և ճիշտ դիրքում է</p>
-				<span class="guessLetter">Խ</span>
-				<span class="guessLetter">Ն</span>
-				<span class="guessLetter hit">Ձ</span>
-				<span class="guessLetter">Ո</span>
-				<span class="guessLetter">Ր</span>
-				<p>Ձ տառը բառի մեջ է, սակայն սխալ դիրքում</p>
-				<span class="guessLetter">Ս</span>
-				<span class="guessLetter">Ե</span>
-				<span class="guessLetter">Ղ</span>
-				<span class="guessLetter">Ա</span>
-				<span class="guessLetter wrong">Ն</span>
-				<p>Ն տառը բառի մեջ չէ ընդհանրապես</p>
-				<p>Եթե կա կրկնվող տառ, կհայտնվի՝</p>
-				<p class="doubleLetter">ԿՐԿՆՎՈՂ ՏԱՌ</p>
-				<p class="b"></p>
-				<p>Նոր
-					<b>ԲԱՌՈՒԿ</b>
-					հասանելի կլինի ամե՛ն օր։</p>
-			</div>
-		</div>
-		<div id="stats_">
-			<div id="stats">
-				<span class="close" onclick="closeS()"></span>
-				<h3>Վիճակագրություն</h3>
-				<div class="stats_">
-					<span class="stats">
-						<span id="gcount">0</span>
-						<span>Խաղ</span>
-					</span>
-					<span class="stats">
-						<span id="wcount">0%</span>
-						<span>Հաղթանակ</span>
-					</span>
-					<span class="stats">
-						<span id="cstreak">0</span>
-						<span>Ընթացիկ Հաղթական Շարքը</span>
-					</span>
-					<span class="stats">
-						<span id="mstreak">0</span>
-						<span>Ամենաերկար Հաղթական Շարքը</span>
-					</span>
-				</div>
-				<div id="graph">
-					<span class="guessC"></span>
-					<span class="guessC"></span>
-					<span class="guessC"></span>
-					<span class="guessC"></span>
-					<span class="guessC"></span>
-					<span class="guessC"></span>
-				</div>
-				<div class="timer">
-					<span>Հաջորդ բառուկը՝</span>
-					<span id="time">00:00:00-ից</span>
-				</div>
-				<button class="shareButton" onclick="copyEmoji()">Կիսվել</button>
-			</div>
-		</div>
-		<div id="alert"></div>
-		<script src="/javascripts/script.js"></script>
-		<script>
-			let _word = "{{ word }}";
-let wordNumber = "{{ wordNumber }}";
-main();
-start();
-		</script>
 	</body>
 </html>

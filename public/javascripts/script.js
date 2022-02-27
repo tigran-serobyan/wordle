@@ -9,7 +9,8 @@ let enterInProgress = false;
 let endOfGame = false;
 let stats = [];
 function start() {
-    closeS()
+    closeS();
+    closeC();
     stats = localStorage.getItem('stats') ? JSON.parse(localStorage.getItem('stats')) : [];
     stats[wordNumber - 1] = stats[wordNumber - 1] ? stats[wordNumber - 1] : null;
     localStorage.setItem('stats', JSON.stringify(stats));
@@ -30,6 +31,17 @@ function closeH() {
 function openH() {
     document.getElementById('start').style.display = "block";
     intro.id = "intro";
+}
+
+let cog = document.getElementById('cog')
+function closeC() {
+    document.getElementById('configs').style.display = "none";
+    cog.id = "";
+}
+
+function openC() {
+    document.getElementById('configs').style.display = "block";
+    cog.id = "cog";
 }
 
 let statsd = document.getElementById('stats')
@@ -124,9 +136,9 @@ function enter() {
                                 "Հանճարեղ", "Հոյակապ", "Գերազանց", "Փայլուն", "Տպավորիչ", "Օ՜ֆ"
                             ];
                             if (stats[wordNumber - 1] == "X") {
-                                alert_("Օրվա բառը։ " + word.join(""), false, 3000)
+                                alert_("Օրվա բառը։ " + word.join(""), false, 3000);
                             } else {
-                                alert_(hranoush[stats[wordNumber - 1] - 1], false)
+                                alert_(hranoush[stats[wordNumber - 1] - 1], false, 1500);
                             }
                             axios.post('/win/', { history, word: word.join('') }).then(function (res) {
                                 // console.log(res);
@@ -284,12 +296,19 @@ function setEmoji() {
     let emoji = '';
     let letters = document.getElementsByClassName("guessLetter");
     let count = 0;
-    let blank = darkThemeMq.matches ? '⬛' : '⬜'
+    let blank;
+    if (localStorage.getItem("color") == "device") {
+        blank = darkThemeMq.matches ? '⬛' : '⬜';
+    } else {
+        blank = (localStorage.getItem("color") == "dark") ? '⬛' : '⬜';
+    }
+    let hit = (localStorage.getItem("colorM") == "greenYellow") ? '🟨' : '🟧';
+    let right = (localStorage.getItem("colorM") == "greenYellow") ? '🟩' : '🟦';
     for (let l in letters) {
         if (letters[l].className == 'guessLetter' || letters[l].className == undefined || l > 29) {
             break;
         }
-        emoji += letters[l].className == 'guessLetter wrong' ? blank : letters[l].className == 'guessLetter hit' ? '🟨' : '🟩';
+        emoji += letters[l].className == 'guessLetter wrong' ? blank : letters[l].className == 'guessLetter hit' ? hit : right;
         if (l % 5 == 4) {
             emoji += '\n';
             count++;
@@ -306,9 +325,19 @@ function setEmoji() {
 let darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
 function main() {
     darkThemeMq.onchange = function (e) {
-        style(e.matches ? "dark" : "light")
+        if (localStorage.getItem("color") == "device" || !localStorage.getItem("color")) {
+            style(e.matches ? "dark" : "light")
+        }
     }
-    style(darkThemeMq.matches ? "dark" : "light")
+    if (localStorage.getItem("color") == "device" || !localStorage.getItem("color")) {
+        style(darkThemeMq.matches ? "dark" : "light")
+    } else {
+        style(localStorage.getItem("color"))
+    }
+    if (!localStorage.getItem("colorM")) {
+        localStorage.setItem("colorM", "greenYellow")
+    }
+    colorMode(localStorage.getItem("colorM"))
     timer();
     for (let i = 0; i < _word.length; i++) {
         if (_word[i + 1] == 'Ւ') {
@@ -342,33 +371,33 @@ function copyEmoji() {
     if (navigator.share) {
         navigator.share(shareEmoji).then(() => {
         }).catch(err => {
-            var emoji = document.createElement('textarea');
-            emoji.innerText = shareEmoji.text
-            emoji.focus();
+            let emoji = document.createElement('textarea');
+            emoji.innerText = shareEmoji.text;
+            document.body.appendChild(emoji);
             emoji.select();
-            document.appendChild(emoji);
+            emoji.setSelectionRange(0, 99999);
             try {
-                var successful = document.execCommand('copy');
-                alert_('Պատճենված', false);
+                let successful = document.execCommand("copy");
+                alert_('Պատճենված', false, 1000);
                 emoji.remove();
             } catch (err) {
-                alert_('Չստացվեց', false);
+                alert_('Չստացվեց', false, 1000);
                 emoji.remove();
             }
         });
     } else {
         var emoji = document.createElement('textarea');
-        emoji.innerText = shareEmoji.text
-        emoji.focus();
+        emoji.innerText = shareEmoji.text;
+        document.body.appendChild(emoji);
         emoji.select();
-        document.appendChild(emoji);
+        emoji.setSelectionRange(0, 99999);
         try {
-            var successful = document.execCommand('copy');
-            alert_('Պատճենված');
+            var successful = document.execCommand("copy");
+            alert_('Պատճենված', false, 1000);
             emoji.remove()
         } catch (err) {
             emoji.remove()
-            alert_('Չստացվեց');
+            alert_('Չստացվեց', false, 1000);
         }
     }
 }
@@ -443,9 +472,32 @@ function timer() {
     }
 }
 
+function color(e) {
+    if (e.id == "colordark") {
+        localStorage.setItem("color", "dark")
+        style("dark")
+    }
+    if (e.id == "colorlight") {
+        localStorage.setItem("color", "light")
+        style("light")
+    }
+    if (e.id == "colordevice") {
+        localStorage.setItem("color", "device")
+        style(darkThemeMq.matches ? "dark" : "light")
+    }
+    document.getElementById("color" + localStorage.getItem("color"))
+}
+
 function style(color = "") {
+    for (b of document.getElementsByClassName("color")) {
+        b.className = "color";
+    }
+    if (!localStorage.getItem("color")) {
+        localStorage.setItem("color", "device");
+    }
+    document.getElementById("color" + localStorage.getItem("color")).className = "color active"
     if (!shareEmoji.url) {
-        setEmoji()
+        setEmoji();
     }
     if (color) {
         document.getElementById("style").href = "/stylesheets/" + color + ".css";
@@ -454,6 +506,44 @@ function style(color = "") {
             document.getElementById("style").href = "/stylesheets/dark.css";
         } else {
             document.getElementById("style").href = "/stylesheets/light.css";
+        }
+    }
+}
+
+function colorM(e) {
+    if (e.id == "colorgreenYellow") {
+        localStorage.setItem("colorM", "greenYellow")
+        colorMode("greenYellow")
+    }
+    if (e.id == "colororangeBlue") {
+        localStorage.setItem("colorM", "orangeBlue")
+        colorMode("orangeBlue")
+    }
+    document.getElementById("color" + localStorage.getItem("colorM"))
+}
+
+function colorMode(mode = "") {
+    for (b of document.getElementsByClassName("colorM")) {
+        b.className = "colorM";
+    }
+    if (!localStorage.getItem("colorM")) {
+        localStorage.setItem("colorM", "greenYellow");
+    }
+    document.getElementById("color" + localStorage.getItem("colorM")).className = "colorM active";
+    if (!shareEmoji.url) {
+        setEmoji();
+    }
+    if (mode) {
+        document.getElementById("colorMode").href = "/stylesheets/" + mode + ".css";
+    } else {
+        if (document.getElementById("colorMode").href.split("/")[document.getElementById("colorMode").href.split("/").length - 1] == "orangeBlue") {
+            document.getElementById("colorMode").href = "/stylesheets/greenYellow.css";
+            document.getElementById("icon").href = "/stylesheets/images/logo.png";
+            document.getElementById("appleIcon").href = "/stylesheets/images/logo.png";
+        } else {
+            document.getElementById("colorMode").href = "/stylesheets/orangeBlue.css";
+            document.getElementById("icon").href = "/stylesheets/images/logoBlue.png";
+            document.getElementById("appleIcon").href = "/stylesheets/images/logoBlue.png";
         }
     }
 }

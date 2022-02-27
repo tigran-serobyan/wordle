@@ -1,6 +1,15 @@
+:root {
+    --background: #fff;
+    --wrong: #c1c5c5;
+}
+
+body {
+    background: var(--light-back);
+}
+
 nav {
     border-bottom: 1px solid #eee;
-    background   : white;
+    background: white;
 }
 
 h1 {
@@ -14,7 +23,7 @@ main {
 .letter,
 .button {
     background: #c6c9c9;
-    color     : black;
+    color: black;
 }
 
 .button {
@@ -23,228 +32,229 @@ main {
 
 .guessLetter {
     background: white;
-    border    : solid 2px #c1c5c5;
-    color     : black;
+    border: solid 2px #c1c5c5;
+    color: black;
 }
 
 @keyframes flipWrong {
     0% {
-        background  : white;
+        background: white;
         border-color: #c1c5c5;
-        transform   : rotateX(0deg);
-        color       : black;
+        transform: rotateX(0deg);
+        color: black;
     }
 
     49% {
-        background  : white;
+        background: white;
         border-color: #c1c5c5;
-        color       : black;
+        color: black;
     }
 
     50% {
-        background  : #646565;
+        background: #646565;
         border-color: #646565;
-        transform   : rotateX(90deg);
-        color       : white;
+        transform: rotateX(90deg);
+        color: white;
     }
 
     100% {
-        transform   : rotateX(0deg);
-        background  : #646565;
+        transform: rotateX(0deg);
+        background: #646565;
         border-color: #646565;
-        color       : white;
+        color: white;
     }
 }
 
 @keyframes flipHit {
     0% {
-        background  : white;
+        background: white;
         border-color: #c1c5c5;
-        transform   : rotateX(0deg);
-        color       : black;
+        transform: rotateX(0deg);
+        color: black;
     }
 
     49% {
-        background  : white;
+        background: white;
         border-color: #c1c5c5;
-        color       : black;
+        color: black;
     }
 
     50% {
-        background  : #af8515;
-        border-color: #af8515;
-        transform   : rotateX(90deg);
-        color       : white;
+        background: var(--hit);
+        border-color: var(--hit);
+        transform: rotateX(90deg);
+        color: white;
     }
 
     100% {
-        transform   : rotateX(0deg);
-        background  : #af8515;
-        border-color: #af8515;
-        color       : white;
+        transform: rotateX(0deg);
+        background: var(--hit);
+        border-color: var(--hit);
+        color: white;
     }
 }
 
 @keyframes flipRight {
     0% {
-        background  : white;
+        background: white;
         border-color: #c1c5c5;
-        transform   : rotateX(0deg);
-        color       : black;
+        transform: rotateX(0deg);
+        color: black;
     }
 
     49% {
-        background  : white;
+        background: white;
         border-color: #c1c5c5;
-        color       : black;
+        color: black;
     }
 
     50% {
-        background  : #3f813a;
-        border-color: #3f813a;
-        transform   : rotateX(90deg);
-        color       : white;
+        background: var(--right);
+        border-color: var(--right);
+        transform: rotateX(90deg);
+        color: white;
     }
 
     100% {
-        transform   : rotateX(0deg);
-        background  : #3f813a;
-        border-color: #3f813a;
-        color       : white;
+        transform: rotateX(0deg);
+        background: var(--right);
+        border-color: var(--right);
+        color: white;
     }
 }
 
 .wrong {
-    background  : #646565;
+    background: #646565;
     border-color: #646565;
-    color       : white;
+    color: white;
 }
 
 .hit {
-    background  : #af8515;
-    border-color: #af8515;
-    color       : white;
+    background: var(--hit);
+    border-color: var(--hit);
+    color: white;
 }
 
 .right {
-    background  : #3f813a;
-    border-color: #3f813a;
-    color       : white;
+    background: var(--right);
+    border-color: var(--right);
+    color: white;
 }
 
 #intro,
-#stats {
+#stats,
+#cog {
     background: #fff;
-    border    : solid 2px #ddd;
-    color     : #060606;
+    border: solid 2px #ddd;
+    color: #060606;
 }
 
 @keyframes iflipWrong {
     0% {
-        background  : white;
+        background: white;
         border-color: #646565;
-        color       : black;
+        color: black;
     }
 
     40% {
-        background  : white;
+        background: white;
         border-color: #646565;
-        transform   : rotateX(0deg);
-        color       : black;
+        transform: rotateX(0deg);
+        color: black;
     }
 
     68% {
-        background  : white;
+        background: white;
         border-color: #646565;
-        color       : black;
+        color: black;
     }
 
     70% {
-        background  : #2d2e2e;
+        background: #2d2e2e;
         border-color: #2d2e2e;
-        transform   : rotateX(90deg);
-        color       : white;
+        transform: rotateX(90deg);
+        color: white;
     }
 
     100% {
-        transform   : rotateX(0deg);
-        background  : #2d2e2e;
+        transform: rotateX(0deg);
+        background: #2d2e2e;
         border-color: #2d2e2e;
-        color       : white;
+        color: white;
     }
 }
 
 @keyframes iflipHit {
     0% {
-        background  : white;
+        background: white;
         border-color: #646565;
-        color       : black;
+        color: black;
     }
 
     45% {
-        background  : white;
+        background: white;
         border-color: #646565;
-        transform   : rotateX(0deg);
-        color       : black;
+        transform: rotateX(0deg);
+        color: black;
     }
 
     72% {
-        background  : white;
+        background: white;
         border-color: #646565;
-        color       : black;
+        color: black;
     }
 
     75% {
-        background  : #af8515;
-        border-color: #af8515;
-        transform   : rotateX(90deg);
-        color       : white;
+        background: var(--hit);
+        border-color: var(--hit);
+        transform: rotateX(90deg);
+        color: white;
     }
 
     100% {
-        transform   : rotateX(0deg);
-        background  : #af8515;
-        border-color: #af8515;
-        color       : white;
+        transform: rotateX(0deg);
+        background: var(--hit);
+        border-color: var(--hit);
+        color: white;
     }
 }
 
 @keyframes iflipRight {
     0% {
-        background  : white;
+        background: white;
         border-color: #646565;
-        color       : black;
+        color: black;
     }
 
     37% {
-        background  : white;
+        background: white;
         border-color: #646565;
-        transform   : rotateX(0deg);
-        color       : black;
+        transform: rotateX(0deg);
+        color: black;
     }
 
     70% {
-        background  : white;
+        background: white;
         border-color: #646565;
-        color       : black;
+        color: black;
     }
 
     72% {
-        background  : #3f813a;
-        border-color: #3f813a;
-        transform   : rotateX(90deg);
-        color       : white;
+        background: var(--right);
+        border-color: var(--right);
+        transform: rotateX(90deg);
+        color: white;
     }
 
     100% {
-        transform   : rotateX(0deg);
-        background  : #3f813a;
-        border-color: #3f813a;
-        color       : white;
+        transform: rotateX(0deg);
+        background: var(--right);
+        border-color: var(--right);
+        color: white;
     }
 }
 
-.guessC{
+.guessC {
     background: #8b8a8a;
     color: white;
 }
@@ -258,6 +268,8 @@ main {
 }
 
 .help,
-.stat {
+.stat,
+.menu,
+.cogs {
     filter: invert(100%);
 }
