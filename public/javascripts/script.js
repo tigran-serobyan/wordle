@@ -24,11 +24,16 @@ function start() {
     stats = localStorage.getItem('stats') ? JSON.parse(localStorage.getItem('stats')) : [];
     stats[wordNumber - 1] = stats[wordNumber - 1] ? stats[wordNumber - 1] : null;
     localStorage.setItem('stats', JSON.stringify(stats));
+    let d = new Date(((new Date()).toLocaleString("en-US", { timeZone: "Asia/Yerevan" })));
     if (!localStorage.getItem('a') && !localStorage.getItem('history')) {
+        localStorage.setItem("day", d.getDate())
         localStorage.setItem('a', 'a');
         openH();
     } else {
         closeH();
+    }
+    if (localStorage.getItem("day") != d.getDate()) {
+        location.reload()
     }
 }
 
@@ -388,11 +393,6 @@ function setEmoji() {
 
 let darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
 function main() {
-    let d = new Date(((new Date()).toLocaleString("en-US", { timeZone: "Asia/Yerevan" })));
-    if (localStorage.getItem("day") != d.getDate()) {
-        location.reload()
-    }
-    localStorage.setItem("day", d.getDate())
     darkThemeMq.onchange = function (e) {
         if (localStorage.getItem("color") == "device" || !localStorage.getItem("color")) {
             style(e.matches ? "dark" : "light")
