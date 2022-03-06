@@ -33,6 +33,7 @@ function start() {
         closeH();
     }
     if (localStorage.getItem("day") != d.getDate()) {
+        localStorage.setItem("day", d.getDate())
         location.reload()
     }
 }
