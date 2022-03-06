@@ -1,4 +1,14 @@
-let word = [];
+const decrypt = (salt, encoded) => {
+    const textToChars = (text) => text.split("").map((c) => c.charCodeAt(0));
+    const applySaltToChar = (code) => textToChars(salt).reduce((a, b) => a ^ b, code);
+    return encoded
+        .match(/.{1,2}/g)
+        .map((hex) => parseInt(hex, 16))
+        .map(applySaltToChar)
+        .map((charCode) => String.fromCharCode(charCode + 1280))
+        .join("");
+};
+
 let history;
 let shareEmoji = { title: 'Բառուկ', text: 'բառուկ.հայ\n', url: window.location.origin }
 
@@ -87,6 +97,15 @@ function enter() {
                     let guessRows = document.getElementsByClassName("guessRow");
                     let letters = guessRows[guessCount].getElementsByClassName("guessLetter");
                     let k = [...currentWord];
+                    let word = [];
+                    for (let i = 0; i < decrypt("ԲԱՌՈՒԿ" + wordNumber, _word).length; i++) {
+                        if (decrypt("ԲԱՌՈՒԿ" + wordNumber, _word)[i + 1] == 'Ւ') {
+                            word.push(decrypt("ԲԱՌՈՒԿ" + wordNumber, _word)[i] + decrypt("ԲԱՌՈՒԿ" + wordNumber, _word)[i + 1]);
+                            i++;
+                        } else {
+                            word.push(decrypt("ԲԱՌՈՒԿ" + wordNumber, _word)[i]);
+                        }
+                    }
                     let p = [...word]
                     for (let j = 0; j < p.length; j++) {
                         if (k[j] == p[j]) {
@@ -131,6 +150,15 @@ function enter() {
                         if (guessRight || guessCount == 6) {
                             endOfGame = true;
                             endScreen();
+                            let word = [];
+                            for (let i = 0; i < decrypt("ԲԱՌՈՒԿ" + wordNumber, _word).length; i++) {
+                                if (decrypt("ԲԱՌՈՒԿ" + wordNumber, _word)[i + 1] == 'Ւ') {
+                                    word.push(decrypt("ԲԱՌՈՒԿ" + wordNumber, _word)[i] + decrypt("ԲԱՌՈՒԿ" + wordNumber, _word)[i + 1]);
+                                    i++;
+                                } else {
+                                    word.push(decrypt("ԲԱՌՈՒԿ" + wordNumber, _word)[i]);
+                                }
+                            }
                             stats[wordNumber - 1] = (history[history.length - 1].join('') == word.join('')) ? guessCount : 'X';
                             let hranoush = [
                                 "Հանճարեղ", "Հոյակապ", "Գերազանց", "Փայլուն", "Տպավորիչ", "Օ՜ֆ"
@@ -235,6 +263,15 @@ function checkAll() {
         for (let i in letters) {
             k.push(letters[i].innerText);
         }
+        let word = [];
+        for (let i = 0; i < decrypt("ԲԱՌՈՒԿ" + wordNumber, _word).length; i++) {
+            if (decrypt("ԲԱՌՈՒԿ" + wordNumber, _word)[i + 1] == 'Ւ') {
+                word.push(decrypt("ԲԱՌՈՒԿ" + wordNumber, _word)[i] + decrypt("ԲԱՌՈՒԿ" + wordNumber, _word)[i + 1]);
+                i++;
+            } else {
+                word.push(decrypt("ԲԱՌՈՒԿ" + wordNumber, _word)[i]);
+            }
+        }
         let p = [...word]
         for (let j = 0; j < p.length; j++) {
             if (k[j] == p[j]) {
@@ -277,6 +314,15 @@ function checkAll() {
         if (guessRight || guessCount >= 6) {
             endOfGame = true;
             if (stats[wordNumber - 1] == "X") {
+                let word = [];
+                for (let i = 0; i < decrypt("ԲԱՌՈՒԿ" + wordNumber, _word).length; i++) {
+                    if (decrypt("ԲԱՌՈՒԿ" + wordNumber, _word)[i + 1] == 'Ւ') {
+                        word.push(decrypt("ԲԱՌՈՒԿ" + wordNumber, _word)[i] + decrypt("ԲԱՌՈՒԿ" + wordNumber, _word)[i + 1]);
+                        i++;
+                    } else {
+                        word.push(decrypt("ԲԱՌՈՒԿ" + wordNumber, _word)[i]);
+                    }
+                }
                 alert_("Օրվա բառը։ " + word.join(""), false, 3000)
             }
             endScreen();
@@ -286,7 +332,16 @@ function checkAll() {
 }
 
 function endScreen() {
-    count = setEmoji()
+    count = setEmoji();
+    let word = [];
+    for (let i = 0; i < decrypt("ԲԱՌՈՒԿ" + wordNumber, _word).length; i++) {
+        if (decrypt("ԲԱՌՈՒԿ" + wordNumber, _word)[i + 1] == 'Ւ') {
+            word.push(decrypt("ԲԱՌՈՒԿ" + wordNumber, _word)[i] + decrypt("ԲԱՌՈՒԿ" + wordNumber, _word)[i + 1]);
+            i++;
+        } else {
+            word.push(decrypt("ԲԱՌՈՒԿ" + wordNumber, _word)[i]);
+        }
+    }
     stats[wordNumber - 1] = (history[history.length - 1].join('') == word.join('')) ? count : 'X';
     localStorage.setItem('stats', JSON.stringify(stats));
     openS();
@@ -317,6 +372,15 @@ function setEmoji() {
     shareEmoji = {
         title: '', text: ''
     }
+    let word = [];
+    for (let i = 0; i < decrypt("ԲԱՌՈՒԿ" + wordNumber, _word).length; i++) {
+        if (decrypt("ԲԱՌՈՒԿ" + wordNumber, _word)[i + 1] == 'Ւ') {
+            word.push(decrypt("ԲԱՌՈՒԿ" + wordNumber, _word)[i] + decrypt("ԲԱՌՈՒԿ" + wordNumber, _word)[i + 1]);
+            i++;
+        } else {
+            word.push(decrypt("ԲԱՌՈՒԿ" + wordNumber, _word)[i]);
+        }
+    }
     shareEmoji.text = 'Բառուկ ' + wordNumber + ' ' + ((history[history.length - 1].join('') == word.join('')) ? count : 'X') + '/6 \n' + emoji.slice(0, -1);
     shareEmoji.title = 'Բառուկ ' + wordNumber;
     return count;
@@ -324,6 +388,11 @@ function setEmoji() {
 
 let darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
 function main() {
+    let d = new Date(((new Date()).toLocaleString("en-US", { timeZone: "Asia/Yerevan" })));
+    if (localStorage.getItem("day") != d.getDate()) {
+        location.reload()
+    }
+    localStorage.setItem("day", d.getDate())
     darkThemeMq.onchange = function (e) {
         if (localStorage.getItem("color") == "device" || !localStorage.getItem("color")) {
             style(e.matches ? "dark" : "light")
@@ -339,12 +408,13 @@ function main() {
     }
     colorMode(localStorage.getItem("colorM"))
     timer();
-    for (let i = 0; i < _word.length; i++) {
-        if (_word[i + 1] == 'Ւ') {
-            word.push(_word[i] + _word[i + 1]);
+    let word = [];
+    for (let i = 0; i < decrypt("ԲԱՌՈՒԿ" + wordNumber, _word).length; i++) {
+        if (decrypt("ԲԱՌՈՒԿ" + wordNumber, _word)[i + 1] == 'Ւ') {
+            word.push(decrypt("ԲԱՌՈՒԿ" + wordNumber, _word)[i] + decrypt("ԲԱՌՈՒԿ" + wordNumber, _word)[i + 1]);
             i++;
         } else {
-            word.push(_word[i]);
+            word.push(decrypt("ԲԱՌՈՒԿ" + wordNumber, _word)[i]);
         }
     }
     for (let i in word) {
@@ -352,7 +422,7 @@ function main() {
             document.getElementById("doubleLetter").style.display = "block";
         }
     }
-    if (word.join('') != localStorage.getItem('word')) {
+    if (_word != localStorage.getItem('word')) {
         localStorage.setItem('word', _word);
         localStorage.setItem('history', '');
     }

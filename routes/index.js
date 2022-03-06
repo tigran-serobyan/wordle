@@ -72,9 +72,9 @@ fs.readFile('./stats.txt', function (err, data) {
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  wordNumber = wordNumber = Math.floor((Date.parse((new Date()).toLocaleString("en-US", { timeZone: "Asia/Yerevan" })) - Date.parse("Feb 21 2022 00:00:00 GMT+0400")) / 86400000 + 0.833333333);
+  wordNumber = Math.floor((Date.parse((new Date()).toLocaleString("en-US", { timeZone: "Asia/Yerevan" })) - Date.parse("Feb 21 2022 00:00:00 GMT+0400")) / 86400000 + 0.833333333);
   wordOfTheDay = swords[wordNumber - 1].toUpperCase();
-  res.render('index', { title: 'Բառուկ | Արևելահայերեն', word: wordOfTheDay, wordNumber });
+  res.render('index', { title: 'Բառուկ | Արևելահայերեն', word: crypt("ԲԱՌՈՒԿ" + wordNumber, wordOfTheDay), wordNumber });
 });
 
 router.get('/vardanoush', function (req, res, next) {
@@ -117,3 +117,17 @@ router.get('/checkWord/:word', function (req, res, next) {
 });
 
 module.exports = router;
+
+
+const crypt = (salt, text) => {
+  const textToChars = (text) => text.split("").map((c) => c.charCodeAt(0));
+  const byteHex = (n) => ("0" + Number(n).toString(16)).substr(-2);
+  const applySaltToChar = (code) => textToChars(salt).reduce((a, b) => a ^ b, code);
+
+  return text
+    .split("")
+    .map(textToChars)
+    .map(applySaltToChar)
+    .map(byteHex)
+    .join("");
+};
