@@ -422,6 +422,9 @@ function main() {
             document.getElementById("doubleLetter").style.display = "block";
         }
     }
+    if (localStorage.getItem('word') == decrypt("ԲԱՌՈՒԿ" + wordNumber, _word)) {
+        localStorage.setItem('word', _word);
+    }
     if (_word != localStorage.getItem('word')) {
         localStorage.setItem('word', _word);
         localStorage.setItem('history', '');
