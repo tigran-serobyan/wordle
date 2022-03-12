@@ -5,6 +5,7 @@ var words = [];
 var repeatingWords = [];
 var nonRepeatingWords = [];
 var swords = [];
+var nwords = [];
 var stats = [];
 var wordOfTheDay = '';
 var wordNumber = 0;
@@ -12,60 +13,68 @@ var wordNumber = 0;
 fs.readFile('./stats.txt', function (err, data) {
   stats = JSON.parse(data.toString('utf-8'));
   fs.readFile('./swords.txt', function (err, data) {
-    let swords_ = JSON.parse(data.toString('utf-8'));
-    for (let w of swords_) {
-      if (swords.indexOf(w) == -1) {
-        swords.push(w);
+    let nwords_ = JSON.parse(data.toString('utf-8'));
+    for (let w of nwords_) {
+      if (nwords.indexOf(w) == -1) {
+        nwords.push(w);
       }
     }
-    wordOfTheDay = swords[wordNumber].toUpperCase();
-    fs.writeFile('./swords.txt', JSON.stringify(swords), function (err) {
-      if (err) {
-        console.log(err);
-      } else {
-        fs.readFile('./nonRepeatingWords.txt', function (err, data) {
-          let words_ = JSON.parse(data.toString('utf-8'));
-          for (let w of words_) {
-            nonRepeatingWords.push(w);
-          }
-          nonRepeatingWords.sort()
-          fs.readFile('./words.txt', function (err, data) {
+    fs.readFile('./swords.txt', function (err, data) {
+      let swords_ = JSON.parse(data.toString('utf-8'));
+      for (let w of swords_) {
+        if (swords.indexOf(w) == -1) {
+          swords.push(w);
+        }
+      }
+      wordOfTheDay = swords[wordNumber].toUpperCase();
+      fs.writeFile('./swords.txt', JSON.stringify(swords), function (err) {
+        if (err) {
+          console.log(err);
+        } else {
+          fs.readFile('./nonRepeatingWords.txt', function (err, data) {
             let words_ = JSON.parse(data.toString('utf-8'));
             for (let w of words_) {
-              if (words.indexOf(w) == -1) {
-                words.push(w);
-              }
+              nonRepeatingWords.push(w);
             }
-            words.sort();
-            fs.readFile('./repeatingWords.txt', function (err, data) {
+            nonRepeatingWords.sort()
+            fs.readFile('./words.txt', function (err, data) {
               let words_ = JSON.parse(data.toString('utf-8'));
               for (let w of words_) {
                 if (words.indexOf(w) == -1) {
-                  repeatingWords.push(w);
+                  words.push(w);
                 }
               }
-              repeatingWords.sort();
-              fs.writeFile('./repeatingWords.txt', JSON.stringify(repeatingWords), function (err) {
-                if (err) {
-                  console.log(err);
-                } else {
-                  fs.writeFile('./words.txt', JSON.stringify(words), function (err) {
-                    if (err) {
-                      console.log(err);
-                    } else {
-                      fs.writeFile('./nonRepeatingWords.txt', JSON.stringify(nonRepeatingWords), function (err) {
-                        if (err) {
-                          console.log(err);
-                        }
-                      });
-                    }
-                  });
+              words.sort();
+              fs.readFile('./repeatingWords.txt', function (err, data) {
+                let words_ = JSON.parse(data.toString('utf-8'));
+                for (let w of words_) {
+                  if (words.indexOf(w) == -1) {
+                    repeatingWords.push(w);
+                  }
                 }
+                repeatingWords.sort();
+                fs.writeFile('./repeatingWords.txt', JSON.stringify(repeatingWords), function (err) {
+                  if (err) {
+                    console.log(err);
+                  } else {
+                    fs.writeFile('./words.txt', JSON.stringify(words), function (err) {
+                      if (err) {
+                        console.log(err);
+                      } else {
+                        fs.writeFile('./nonRepeatingWords.txt', JSON.stringify(nonRepeatingWords), function (err) {
+                          if (err) {
+                            console.log(err);
+                          }
+                        });
+                      }
+                    });
+                  }
+                });
               });
             });
           });
-        });
-      }
+        }
+      });
     });
   });
 });
@@ -75,6 +84,12 @@ router.get('/', function (req, res, next) {
   wordNumber = Math.floor((Date.parse((new Date()).toLocaleString("en-US", { timeZone: "Asia/Yerevan" })) - Date.parse("Feb 21 2022 00:00:00 GMT+0400")) / 86400000 + 0.833333333);
   wordOfTheDay = swords[wordNumber - 1].toUpperCase();
   res.render('index', { title: 'Բառուկ | Արևելահայերեն', word: crypt("ԲԱՌՈՒԿ" + wordNumber, wordOfTheDay), wordNumber });
+});
+
+router.get('/unlim', function (req, res, next) {
+  let worddNumber = Math.floor(Math.random() * nwords.length);
+  let wordd = nwords[worddNumber].toUpperCase();
+  res.render('unlim', { title: 'Բառուկ | Անսահմանափակ', word: crypt("ԲԱՌՈՒԿ" + worddNumber, wordd), wordNumber: worddNumber });
 });
 
 router.get('/vardanoush', function (req, res, next) {

@@ -1,0 +1,219 @@
+{% extends 'layout.twig' %}
+
+{% block body %}
+	<main>
+		<nav>
+			<span onclick="openH()" class="help"></span>
+			<h1>ԲԱՌՈՒԿ</h1>
+			<span onclick="openS()" class="stat"></span>
+			<span onclick="openC()" class="cogs"></span>
+		</nav>
+		<div class="guesses">
+			<p id="doubleLetter">ԿՐԿՆՎՈՂ ՏԱՌ</p>
+			<div class="guessRow">
+				<span class="guessLetter"></span>
+				<span class="guessLetter"></span>
+				<span class="guessLetter"></span>
+				<span class="guessLetter"></span>
+				<span class="guessLetter"></span>
+			</div>
+			<div class="guessRow">
+				<span class="guessLetter"></span>
+				<span class="guessLetter"></span>
+				<span class="guessLetter"></span>
+				<span class="guessLetter"></span>
+				<span class="guessLetter"></span>
+			</div>
+			<div class="guessRow">
+				<span class="guessLetter"></span>
+				<span class="guessLetter"></span>
+				<span class="guessLetter"></span>
+				<span class="guessLetter"></span>
+				<span class="guessLetter"></span>
+			</div>
+			<div class="guessRow">
+				<span class="guessLetter"></span>
+				<span class="guessLetter"></span>
+				<span class="guessLetter"></span>
+				<span class="guessLetter"></span>
+				<span class="guessLetter"></span>
+			</div>
+			<div class="guessRow">
+				<span class="guessLetter"></span>
+				<span class="guessLetter"></span>
+				<span class="guessLetter"></span>
+				<span class="guessLetter"></span>
+				<span class="guessLetter"></span>
+			</div>
+			<div class="guessRow">
+				<span class="guessLetter"></span>
+				<span class="guessLetter"></span>
+				<span class="guessLetter"></span>
+				<span class="guessLetter"></span>
+				<span class="guessLetter"></span>
+			</div>
+		</div>
+		<div class="keyboard">
+			<div class="keyboardRow">
+				<button class="letter" onclick="letter('Է')">Է</button>
+				<button class="letter" onclick="letter('Թ')">Թ</button>
+				<button class="letter" onclick="letter('Փ')">Փ</button>
+				<button class="letter" onclick="letter('Ձ')">Ձ</button>
+				<button class="letter" onclick="letter('Ջ')">Ջ</button>
+				<button class="letter" onclick="letter('ԵՒ')">ԵՒ</button>
+				<button class="letter" onclick="letter('Ր')">Ր</button>
+				<button class="letter" onclick="letter('Չ')">Չ</button>
+				<button class="letter" onclick="letter('Ճ')">Ճ</button>
+				<button class="letter" onclick="letter('Ժ')">Ժ</button>
+				<button class="letter" onclick="letter('Ծ')">Ծ</button>
+			</div>
+			<div class="keyboardRow">
+				<button class="letter" onclick="letter('Ք')">Ք</button>
+				<button class="letter" onclick="letter('Ո')">Ո</button>
+				<button class="letter" onclick="letter('Ե')">Ե</button>
+				<button class="letter" onclick="letter('Ռ')">Ռ</button>
+				<button class="letter" onclick="letter('Տ')">Տ</button>
+				<button class="letter" onclick="letter('Ը')">Ը</button>
+				<button class="letter" onclick="letter('ՈՒ')">ՈՒ</button>
+				<button class="letter" onclick="letter('Ի')">Ի</button>
+				<button class="letter" onclick="letter('Օ')">Օ</button>
+				<button class="letter" onclick="letter('Պ')">Պ</button>
+				<button class="letter" onclick="letter('Խ')">Խ</button>
+			</div>
+			<div class="keyboardRow">
+				<button class="letter" onclick="letter('Ա')">Ա</button>
+				<button class="letter" onclick="letter('Ս')">Ս</button>
+				<button class="letter" onclick="letter('Դ')">Դ</button>
+				<button class="letter" onclick="letter('Ֆ')">Ֆ</button>
+				<button class="letter" onclick="letter('Գ')">Գ</button>
+				<button class="letter" onclick="letter('Հ')">Հ</button>
+				<button class="letter" onclick="letter('Յ')">Յ</button>
+				<button class="letter" onclick="letter('Կ')">Կ</button>
+				<button class="letter" onclick="letter('Լ')">Լ</button>
+				<button class="letter" onclick="letter('Շ')">Շ</button>
+			</div>
+			<div class="keyboardRow">
+				<button class="button" onclick="enter()">ՄՈՒՏՔ</button>
+				<button class="letter" onclick="letter('Զ')">Զ</button>
+				<button class="letter" onclick="letter('Ղ')">Ղ</button>
+				<button class="letter" onclick="letter('Ց')">Ց</button>
+				<button class="letter" onclick="letter('Վ')">Վ</button>
+				<button class="letter" onclick="letter('Բ')">Բ</button>
+				<button class="letter" onclick="letter('Ն')">Ն</button>
+				<button class="letter" onclick="letter('Մ')">Մ</button>
+				<button class="button backspace" onclick="backspace()"></button>
+			</div>
+		</div>
+	</main>
+
+	<div id="configs">
+		<div id="cog">
+			<span class="close" onclick="closeC()"></span>
+			<h3>Կարգավորումներ</h3>
+			<h4>Թեման</h4>
+			<span class="color" id="colordevice" onclick="color(this)">Ըստ կարգավորման</span>
+			<span class="color" id="colordark" onclick="color(this)">Մուգ</span>
+			<span class="color" id="colorlight" onclick="color(this)">Բաց</span>
+
+			<h4>Գույնը</h4>
+			<span class="color" id="colorgreenYellow" onclick="colorM(this)">Սովորական</span>
+			<span class="color" id="colororangeBlue" onclick="colorM(this)">Բարձր հակադրություն</span>
+      <br>
+      <br>
+      <br>
+      <small>&copy;2022 բառուկ․հայ</small>
+      <br>
+      <br>
+		</div>
+	</div>
+	<div id="start">
+		<div id="intro">
+			<span class="close" onclick="closeH()"></span>
+			<h3>Խաղի կանոնները</h3>
+			<p>
+				Գուշակիր օրվա
+				<b>ԲԱՌՈՒԿԸ</b>
+				վեց փորձից։
+			</p>
+			<p>
+				Յուրաքանչյուր փորձը պետք է լինի հինգ տառանոց վավեր բառ։ Սեղմի՛ր
+				<b>ՄՈՒՏՔ</b>
+				կոճակին հաստատելու համար։
+			</p>
+			<p class="b">
+				Հաստատելուց հետո, տուփերի գույները կփոխվեն, ցույց տալով, թե քո կռահումն ինչքանով է մոտ օրվա
+				<b>ԲԱՌՈՒԿԻՆ</b>
+			</p>
+			<h3>Օրինակ</h3>
+			<span class="guessLetter right">Գ</span>
+			<span class="guessLetter">Ի</span>
+			<span class="guessLetter">Տ</span>
+			<span class="guessLetter">ՈՒ</span>
+			<span class="guessLetter">Ն</span>
+			<p>Գ տառը բառի մեջ է և ճիշտ դիրքում է</p>
+			<span class="guessLetter">Խ</span>
+			<span class="guessLetter">Ն</span>
+			<span class="guessLetter hit">Ձ</span>
+			<span class="guessLetter">Ո</span>
+			<span class="guessLetter">Ր</span>
+			<p>Ձ տառը բառի մեջ է, սակայն սխալ դիրքում</p>
+			<span class="guessLetter">Ս</span>
+			<span class="guessLetter">Ե</span>
+			<span class="guessLetter">Ղ</span>
+			<span class="guessLetter">Ա</span>
+			<span class="guessLetter wrong">Ն</span>
+			<p>Ն տառը բառի մեջ չէ ընդհանրապես</p>
+			<p>Եթե կա կրկնվող տառ, կհայտնվի՝</p>
+			<p class="doubleLetter">ԿՐԿՆՎՈՂ ՏԱՌ</p>
+			<p class="b"></p>
+			<p>Նոր
+				<b>ԲԱՌՈՒԿ</b>
+				հասանելի կլինի ամե՛ն օր։</p>
+		</div>
+	</div>
+	<div id="stats_">
+		<div id="stats">
+			<span class="close" onclick="closeS()"></span>
+			<h3>Վիճակագրություն</h3>
+			<div class="stats_">
+				<span class="stats">
+					<span id="gcount">0</span>
+					<span>Խաղ</span>
+				</span>
+				<span class="stats">
+					<span id="wcount">0%</span>
+					<span>Հաղթանակ</span>
+				</span>
+				<span class="stats">
+					<span id="cstreak">0</span>
+					<span>Ընթացիկ Հաղթական Շարքը</span>
+				</span>
+				<span class="stats">
+					<span id="mstreak">0</span>
+					<span>Ամենաերկար Հաղթական Շարքը</span>
+				</span>
+			</div>
+			<div id="graph">
+				<span class="guessC"></span>
+				<span class="guessC"></span>
+				<span class="guessC"></span>
+				<span class="guessC"></span>
+				<span class="guessC"></span>
+				<span class="guessC"></span>
+			</div>
+			<div class="timer">
+				<span>Հաջորդ բառուկը՝</span>
+				<span id="time">00:00:00-ից</span>
+			</div>
+			<button class="shareButton" onclick="copyEmoji()">Կիսվել</button>
+		</div>
+	</div>
+	<div id="alert"></div>
+	<script src="/javascripts/unlim.js"></script>
+	<script>
+		let _word = "{{ word }}";
+let wordNumber = "{{ wordNumber }}";
+main();
+start();
+	</script>
+{% endblock %}
