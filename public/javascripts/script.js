@@ -443,22 +443,7 @@ function main() {
 
 function copyEmoji() {
     if (navigator.share) {
-        navigator.share(shareEmoji).then(() => {
-        }).catch(err => {
-            let emoji = document.createElement('textarea');
-            emoji.innerText = shareEmoji.text;
-            document.body.appendChild(emoji);
-            emoji.select();
-            emoji.setSelectionRange(0, 99999);
-            try {
-                let successful = document.execCommand("copy");
-                alert_('Պատճենված', false, 1000);
-                emoji.remove();
-            } catch (err) {
-                alert_('Չստացվեց', false, 1000);
-                emoji.remove();
-            }
-        });
+        navigator.share(shareEmoji).then(() => {})
     } else {
         var emoji = document.createElement('textarea');
         emoji.innerText = shareEmoji.text;

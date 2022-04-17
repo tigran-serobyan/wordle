@@ -350,7 +350,6 @@ function main() {
         localStorage.setItem("colorM", "greenYellow")
     }
     colorMode(localStorage.getItem("colorM"))
-    timer();
     let word = [];
     for (let i = 0; i < decrypt("ԲԱՌՈՒԿ" + wordNumber, _word).length; i++) {
         if (decrypt("ԲԱՌՈՒԿ" + wordNumber, _word)[i + 1] == 'Ւ') {
@@ -368,50 +367,6 @@ function main() {
 }
 
 function showStats() {
-    s = true;
-    cStreak = 0;
-    mStreak = 0;
-    gCount = 0;
-    wCount = 0;
-    ms = 0;
-    wStats = [0, 0, 0, 0, 0, 0];
-    for (let i = stats.length - 1; i >= 0; i--) {
-        if (stats[i] == null || stats[i] == 'X') {
-            if (stats[i] == 'X') {
-                gCount++;
-            }
-            s = false;
-            if (ms > mStreak) {
-                mStreak = ms;
-            }
-            ms = 0;
-        } else {
-            if (s) {
-                cStreak++;
-            }
-            ms++;
-            gCount++;
-            wCount++;
-            wStats[stats[i] - 1]++;
-        }
-    }
-    if (ms > mStreak) {
-        mStreak = ms;
-    }
-    wCount = gCount ? Math.round(wCount / gCount * 100) : 0;
-    document.getElementById('wcount').innerText = wCount + '%';
-    document.getElementById('gcount').innerText = gCount;
-    document.getElementById('cstreak').innerText = cStreak;
-    document.getElementById('mstreak').innerText = mStreak;
-    for (let i in wStats) {
-        document.getElementsByClassName('guessC')[i].innerText = wStats[i];
-        document.getElementsByClassName('guessC')[i].style.width = "calc(" + wStats[i] / (max(wStats) ? max(wStats) : 1) * 85 + "% + 10%";
-        if (history.length == i - 0 + 1 && stats[wordNumber - 1] != null && stats[wordNumber - 1] != "X") {
-            document.getElementsByClassName('guessC')[i].className = "guessC today";
-        } else {
-            document.getElementsByClassName('guessC')[i].className = "guessC";
-        }
-    }
 }
 
 function max(arr) {
@@ -422,19 +377,6 @@ function max(arr) {
         }
     }
     return max_;
-}
-
-function timer() {
-    let d = new Date(((new Date()).toLocaleString("en-US", { timeZone: "Asia/Yerevan" })));
-    let hour = ((d.getHours() > 13) ? "0" : "") + (23 - d.getHours());
-    let minute = ((d.getMinutes() > 49) ? "0" : "") + (59 - d.getMinutes());
-    let seconds = ((d.getSeconds() > 49) ? "0" : "") + (59 - d.getSeconds());
-    document.getElementById("time").innerText = hour + ":" + minute + ":" + seconds + "-ից"
-    if (hour != "00" || minute != "00" || seconds != "00") {
-        setTimeout(() => {
-            timer();
-        }, 500);
-    }
 }
 
 function color(e) {
@@ -526,5 +468,11 @@ function logKey(e) {
     }
     if (letterObj[e.code]) {
         letter(letterObj[e.code]);
+    }
+}
+
+function copyEmoji() {
+    if (navigator.share) {
+        navigator.share(shareEmoji).then(() => {})
     }
 }
