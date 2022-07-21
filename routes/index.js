@@ -81,7 +81,7 @@ fs.readFile('./stats.txt', function (err, data) {
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  wordNumber = Math.floor((Date.parse((new Date()).toLocaleString("en-US", { timeZone: "Asia/Yerevan" })) - Date.parse("Feb 21 2022 00:00:00 GMT+0400")) / 86400000 + 0.833333333);
+  wordNumber = Math.floor((Date.parse((new Date()).toLocaleString("en-US", { timeZone: "Asia/Yerevan" })) - Date.parse("Feb 21 2022 00:00:00 GMT+0400")) / 86400000 + 0.833333333) % swords.length;
   wordOfTheDay = swords[wordNumber - 1].toUpperCase();
   res.render('index', { title: 'Բառուկ | Արևելահայերեն', word: crypt("ԲԱՌՈՒԿ" + wordNumber, wordOfTheDay), wordNumber });
 });
@@ -92,7 +92,7 @@ router.get('/unlim', function (req, res, next) {
   res.render('unlim', { title: 'Բառուկ | Անսահմանափակ', word: crypt("ԲԱՌՈՒԿ" + worddNumber, wordd), wordNumber: worddNumber });
 });
 
-router.get('/vardanoush', function (req, res, next) {
+router.get('/statistics', function (req, res, next) {
   res.send(stats);
 });
 

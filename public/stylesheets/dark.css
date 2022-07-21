@@ -1,1 +1,228 @@
-:root{--background:#121213;--wrong:#3f4141}body{background:var(--dark-back)}nav{border-bottom:1px solid #222;background:#121213}h1{color:white}main{background:#121213}.letter,.button{background:#797a7a;color:white}.button{background:#393a3a}.guessLetter{background:#121213;border:solid 2px #3f4141;color:white}@keyframes flipWrong{0%{background:#121213;border-color:#3f4141;transform:rotateX(0deg)}49%{background:#121213;border-color:#3f4141}50%{background:#2d2e2e;border-color:#2d2e2e;transform:rotateX(90deg)}100%{transform:rotateX(0deg);background:#2d2e2e;border-color:#2d2e2e}}@keyframes flipHit{0%{background:#121213;border-color:#3f4141;transform:rotateX(0deg)}49%{background:#121213;border-color:#3f4141}50%{background:var(--hit);border-color:var(--hit);transform:rotateX(90deg)}100%{transform:rotateX(0deg);background:var(--hit);border-color:var(--hit)}}@keyframes flipRight{0%{background:#121213;border-color:#3f4141;transform:rotateX(0deg)}49%{background:#121213;border-color:#3f4141}50%{background:var(--right);border-color:var(--right);transform:rotateX(90deg)}100%{transform:rotateX(0deg);background:var(--right);border-color:var(--right)}}.wrong{background:#2d2e2e;border-color:#2d2e2e}.hit{background:var(--hit);border-color:var(--hit)}.right{background:var(--right);border-color:var(--right)}#intro,#stats{background:#060606;border:solid 2px #333;color:#fff}@keyframes iflipWrong{0%{background:#121213;border-color:#3f4141}40%{background:#121213;border-color:#3f4141;transform:rotateX(0deg)}68%{background:#121213;border-color:#3f4141}70%{background:#2d2e2e;border-color:#2d2e2e;transform:rotateX(90deg)}100%{transform:rotateX(0deg);background:#2d2e2e;border-color:#2d2e2e}}@keyframes iflipHit{0%{background:#121213;border-color:#3f4141}45%{background:#121213;border-color:#3f4141;transform:rotateX(0deg)}72%{background:#121213;border-color:#3f4141}75%{background:var(--hit);border-color:var(--hit);transform:rotateX(90deg)}100%{transform:rotateX(0deg);background:var(--hit);border-color:var(--hit)}}@keyframes iflipRight{0%{background:#121213;border-color:#3f4141}37%{background:#121213;border-color:#3f4141;transform:rotateX(0deg)}70%{background:#121213;border-color:#3f4141}72%{background:var(--right);border-color:var(--right);transform:rotateX(90deg)}100%{transform:rotateX(0deg);background:var(--right);border-color:var(--right)}}.timer{border-right:1.5px solid white}
+:root {
+    --background: #121213;
+    --wrong: #3f4141
+}
+
+body {
+    background: var(--dark-back)
+}
+
+nav {
+    border-bottom: 1px solid #222;
+    background: #121213
+}
+
+h1 {
+    color: white
+}
+
+main {
+    background: #121213
+}
+
+.letter,
+.button {
+    background: #797a7a;
+    color: white
+}
+
+.button {
+    background: #393a3a
+}
+
+.guessLetter {
+    background: #121213;
+    border: solid 2px #3f4141;
+    color: white
+}
+
+@keyframes flipWrong {
+    0% {
+        background: #121213;
+        border-color: #3f4141;
+        transform: rotateX(0deg)
+    }
+
+    49% {
+        background: #121213;
+        border-color: #3f4141
+    }
+
+    50% {
+        background: #2d2e2e;
+        border-color: #2d2e2e;
+        transform: rotateX(90deg)
+    }
+
+    100% {
+        transform: rotateX(0deg);
+        background: #2d2e2e;
+        border-color: #2d2e2e
+    }
+}
+
+@keyframes flipHit {
+    0% {
+        background: #121213;
+        border-color: #3f4141;
+        transform: rotateX(0deg)
+    }
+
+    49% {
+        background: #121213;
+        border-color: #3f4141
+    }
+
+    50% {
+        background: var(--hit);
+        border-color: var(--hit);
+        transform: rotateX(90deg)
+    }
+
+    100% {
+        transform: rotateX(0deg);
+        background: var(--hit);
+        border-color: var(--hit)
+    }
+}
+
+@keyframes flipRight {
+    0% {
+        background: #121213;
+        border-color: #3f4141;
+        transform: rotateX(0deg)
+    }
+
+    49% {
+        background: #121213;
+        border-color: #3f4141
+    }
+
+    50% {
+        background: var(--right);
+        border-color: var(--right);
+        transform: rotateX(90deg)
+    }
+
+    100% {
+        transform: rotateX(0deg);
+        background: var(--right);
+        border-color: var(--right)
+    }
+}
+
+.wrong {
+    background: #2d2e2e;
+    border-color: #2d2e2e
+}
+
+.hit {
+    background: var(--hit);
+    border-color: var(--hit)
+}
+
+.right {
+    background: var(--right);
+    border-color: var(--right)
+}
+
+#intro,
+#stats {
+    background: #060606;
+    border: solid 2px #333;
+    color: #fff
+}
+
+@keyframes iflipWrong {
+    0% {
+        background: #121213;
+        border-color: #3f4141
+    }
+
+    40% {
+        background: #121213;
+        border-color: #3f4141;
+        transform: rotateX(0deg)
+    }
+
+    68% {
+        background: #121213;
+        border-color: #3f4141
+    }
+
+    70% {
+        background: #2d2e2e;
+        border-color: #2d2e2e;
+        transform: rotateX(90deg)
+    }
+
+    100% {
+        transform: rotateX(0deg);
+        background: #2d2e2e;
+        border-color: #2d2e2e
+    }
+}
+
+@keyframes iflipHit {
+    0% {
+        background: #121213;
+        border-color: #3f4141
+    }
+
+    45% {
+        background: #121213;
+        border-color: #3f4141;
+        transform: rotateX(0deg)
+    }
+
+    72% {
+        background: #121213;
+        border-color: #3f4141
+    }
+
+    75% {
+        background: var(--hit);
+        border-color: var(--hit);
+        transform: rotateX(90deg)
+    }
+
+    100% {
+        transform: rotateX(0deg);
+        background: var(--hit);
+        border-color: var(--hit)
+    }
+}
+
+@keyframes iflipRight {
+    0% {
+        background: #121213;
+        border-color: #3f4141
+    }
+
+    37% {
+        background: #121213;
+        border-color: #3f4141;
+        transform: rotateX(0deg)
+    }
+
+    70% {
+        background: #121213;
+        border-color: #3f4141
+    }
+
+    72% {
+        background: var(--right);
+        border-color: var(--right);
+        transform: rotateX(90deg)
+    }
+
+    100% {
+        transform: rotateX(0deg);
+        background: var(--right);
+        border-color: var(--right)
+    }
+}
+
+.timer {
+    border-right: 1.5px solid white
+}
