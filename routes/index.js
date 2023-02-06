@@ -81,8 +81,8 @@ fs.readFile('./stats.txt', function (err, data) {
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  wordNumber = Math.floor((Date.parse((new Date()).toLocaleString("en-US", { timeZone: "Asia/Yerevan" })) - Date.parse("Feb 21 2022 00:00:00 GMT+0400")) / 86400000 + 0.833333333) % swords.length;
-  wordOfTheDay = swords[wordNumber - 1].toUpperCase();
+  wordNumber = Math.floor((Date.parse((new Date()).toLocaleString("en-US", { timeZone: "Asia/Yerevan" })) - Date.parse("Feb 21 2022 00:00:00 GMT+0400")) / 86400000 + 0.833333333);
+  wordOfTheDay = swords[wordNumber%swords.length - 1].toUpperCase();
   res.render('index', { title: 'Բառուկ | Արևելահայերեն', word: crypt("ԲԱՌՈՒԿ" + wordNumber, wordOfTheDay), wordNumber });
 });
 
